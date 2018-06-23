@@ -1,16 +1,10 @@
 package pl.sda;
 
-
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import pl.sda.credentials.Password;
-
-
-import java.util.Arrays;
-
-import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 
 @RunWith(JUnitParamsRunner.class)
@@ -40,16 +34,6 @@ public class PasswordTest {
         assertTrue(Password.checkPassword(password, encoded[index]));
     }
 
-    @Test
-    @Parameters({
-            "1"
-            // very long string
-                })
-    public void checkBorderValues(String param){
-        Password.hashPassword(param);
-
-    }
-
     @Test(expected = IllegalArgumentException.class)
     public void checkEmptyString(){
         Password.hashPassword("");
@@ -59,7 +43,5 @@ public class PasswordTest {
     public void checkNullValue(){
         Password.hashPassword(null);
     }
-
-
 
 }
