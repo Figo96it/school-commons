@@ -2,13 +2,13 @@ package pl.sda.model;
 
 public class Plan {
 
-     private int id;
-     private String class_name;
-     private int year;
+    private int id;
+    private String className;
+    private int year;
 
-    public Plan(int id, String class_name, int year) {
+    public Plan(int id, String className, int year) {
         this.id = id;
-        this.class_name = class_name;
+        this.className = className;
         this.year = year;
     }
 
@@ -20,12 +20,12 @@ public class Plan {
         this.id = id;
     }
 
-    public String getClass_name() {
-        return class_name;
+    public String getClassName() {
+        return className;
     }
 
-    public void setClass_name(String class_name) {
-        this.class_name = class_name;
+    public void setClassName(String className) {
+        this.className = className;
     }
 
     public int getYear() {
@@ -40,7 +40,7 @@ public class Plan {
     public String toString() {
         return "Plan{" +
                 "id=" + id +
-                ", class_name='" + class_name + '\'' +
+                ", className='" + className + '\'' +
                 ", year=" + year +
                 '}';
     }
