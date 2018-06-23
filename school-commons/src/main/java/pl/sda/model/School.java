@@ -4,8 +4,8 @@ public class School {
 
     private int id;
     private String name;
-    private String Address;
-    private int ClassId;
+    private String address;
+    private int classId;
 
     public int getId() {
         return id;
@@ -24,18 +24,28 @@ public class School {
     }
 
     public String getAddress() {
-        return Address;
+        return address;
     }
 
     public void setAddress(String address) {
-        Address = address;
+        this.address = address;
     }
 
     public int getClassId() {
-        return ClassId;
+        return classId;
     }
 
     public void setClassId(int classId) {
-        ClassId = classId;
+        this.classId = classId;
+    }
+
+    @Override
+    public String toString() {
+        return "School{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", classId=" + classId +
+                '}';
     }
 }
