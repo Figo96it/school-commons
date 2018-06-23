@@ -1,5 +1,8 @@
 package main.java.pl.sda.model;
 
+import lombok.Data;
+
+@Data
 public class Parents {
     private int id;
     private String surname;
@@ -8,6 +11,4 @@ public class Parents {
     private String telNumber;
     private String mobilePhoneNumber;
     private String mail;
-
-
 }
