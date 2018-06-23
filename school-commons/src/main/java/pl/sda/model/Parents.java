@@ -1,4 +1,4 @@
-package main.java.pl.sda.model;
+package pl.sda.model;
 
 import lombok.Data;
 
