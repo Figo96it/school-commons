@@ -21,7 +21,7 @@ public class PdfDocumentTest {
     public void runTest() {
 
         MockDataResolver dbMock = new MockDataResolver();
-        PdfDocument pdfDocument = new PdfDocument(dbMock.findAllParents(), "C:\\__SDA_java\\_FINAL_PROJECT");
+        PdfDocument pdfDocument = new PdfDocument(dbMock.findAllParents(), PATH);
         pdfDocument.createPdfDocument();
     }
 
