@@ -22,10 +22,10 @@ public class PdfDocument {
     private static final String DEFAULT_PDF_PATH = ".";
     private final String outputPath;
     public List<String> columnNames;
-    private List<Object> objectsToSave;
+    private List<?> objectsToSave;
     private String reportType;
 
-    public PdfDocument(List<Object> objects, String outputPath) {
+    public PdfDocument(List<? extends Object> objects, String outputPath) {
         this.objectsToSave = objects;
         this.columnNames = getFieldsFrom(objects);
         this.outputPath = getOutputPath(outputPath);
@@ -48,7 +48,7 @@ public class PdfDocument {
         document.close();
     }
 
-    private List<String> getFieldsFrom(List<Object> objects) {
+    private List<String> getFieldsFrom(List<? extends Object> objects) {
         for (Object object : objects) {
             if (object != null) {
                 reportType = object.getClass().getSimpleName();
@@ -139,9 +139,9 @@ public class PdfDocument {
     }
 
     private String getCreationDate() {
-        Date date = new Date();
-        return String.format("%s %tF, %<tT", "Date:", date);
+        return String.format("%s %tF, %<tT", "Date:", new Date());
     }
+
     private static String getOutputPath(String outputPath) {
         return StringUtils.isBlank(outputPath) ? DEFAULT_PDF_PATH : outputPath.replace("\\", "/");
     }

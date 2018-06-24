@@ -2,7 +2,9 @@ package pl.sda;
 
 import org.junit.Test;
 import pl.sda.eksporter.PdfDocument;
-import pl.sda.model.Parents;
+import pl.sda.mocks.MockDataResolver;
+import pl.sda.model.Class;
+import pl.sda.model.Parent;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,25 +18,31 @@ public class PdfDocumentTest {
     private final String PATH = ".";
 
     @Test
-    public void runTest(){
+    public void runTest() {
 
-        Parents parent1 = new Parents();
-        parent1.setFirstName("jacek");
-        parent1.setSurname("Piekara");
-        parent1.setMail("mail@mail.pl");
-        Parents parent2 = new Parents();
-        parent2.setFirstName("anna");
-        parent2.setSurname("ldas");
-        parent2.setMail("ksahd");
-        PdfDocument pdfDocument = new PdfDocument(Arrays.asList(new Object[]{parent1, parent2}), "C:\\__SDA_java\\_FINAL_PROJECT");
+        MockDataResolver dbMock = new MockDataResolver();
+        PdfDocument pdfDocument = new PdfDocument(dbMock.findAllParents(), "C:\\__SDA_java\\_FINAL_PROJECT");
         pdfDocument.createPdfDocument();
+    }
+
+    @Test
+    public void createClassReport() {
+        Class class1 = new Class(1L, 1L, "A", 1990, 1L);
+        Class class2 = new Class(2L, 1L, "B", 1991, 2L);
+        Class class3 = new Class(3L, 1L, "C", 1992, 3L);
+        Class class4 = new Class(4L, 1L, "D", 1993, 4L);
+        Class class5 = new Class(5L, 1L, "SKAUCI", 1994, 1L);
+        Class class6 = new Class(6L, 1L, "D", 1990, 2L);
+        PdfDocument pdfDocument = new PdfDocument(Arrays.asList(new Object[]{class1, class2, class3, class4, class5, class6}), "C:\\__SDA_java\\_FINAL_PROJECT");
+        pdfDocument.createPdfDocument();
+
     }
 
 
     @Test
-    public void columnNamesTest(){
-        Parents parent1 = new Parents();
-        PdfDocument pdfDocument = new PdfDocument(Arrays.asList(new Object[]{parent1}), PATH);
+    public void columnNamesTest() {
+        Parent parent1 = new Parent();
+        PdfDocument pdfDocument = new PdfDocument(Arrays.asList(new Parent[]{parent1}), PATH);
         List<String> ref = new ArrayList<>();
         ref.add("ID");
         ref.add("SURNAME");
@@ -46,6 +54,7 @@ public class PdfDocumentTest {
         assertThat(pdfDocument.columnNames, is(ref));
 
     }
+
 
 //    @Test
 //    public void testDate(){

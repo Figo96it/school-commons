@@ -27,7 +27,6 @@
             <lombok_version>1.16.20</lombok_version>
             <open_csv_version>4.0</open_csv_version>
             <itextpdf_version>5.5.10</itextpdf_version>
-            <pdfbox_version>2.0.4</pdfbox_version>
     </properties>
 
     <dependencies>
