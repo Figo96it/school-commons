@@ -7,7 +7,9 @@ import pl.sda.model.Parent;
 import pl.sda.model.Student;
 
 import java.lang.reflect.Field;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -31,14 +33,25 @@ public class MockDataResolverTest {
     }
 
     @Test
-    public void checkIfGradeDataIdIsNotNullAndGradeValueIsBetween1And6() {
+    public void checkIfGradeDataIdIsNotNull() {
         List<Grade> grades = MockDataResolver.findAllGrades();
         for (Grade grade : grades) {
             assertTrue(grade.getId() > 0
                     && grade.getStudentGradeId() > 0
-                    && grade.getSubjectId() > 0 && grade.getGrade() > 0
+                    && grade.getSubjectId() > 0);
+        }
+    }
+
+    @Test
+    public void checkIfGradeValueIsBetween1And6AndGradeValuesAreNotTheSame() {
+        List<Grade> grades = MockDataResolver.findAllGrades();
+        Set<Integer> gradeSet = new HashSet<>();
+        for (Grade grade : grades) {
+            gradeSet.add(grade.getGrade());
+            assertTrue(grade.getGrade() > 0
                     && grade.getGrade() < 7);
         }
+        assertTrue(gradeSet.size() > 1);
     }
 
     private static boolean checkIfAnyFieldIsNull(Object object) {
