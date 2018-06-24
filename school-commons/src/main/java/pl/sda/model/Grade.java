@@ -1,6 +1,5 @@
 package pl.sda.model;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -11,5 +10,4 @@ public class Grade {
     private int subjectId;
     private int studentGradeId;
     private int grade;
-
 }
