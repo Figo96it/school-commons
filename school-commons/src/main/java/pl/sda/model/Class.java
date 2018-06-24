@@ -1,7 +1,9 @@
 package pl.sda.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
+@AllArgsConstructor
 @Data
 public class Class {
     private Long id;
