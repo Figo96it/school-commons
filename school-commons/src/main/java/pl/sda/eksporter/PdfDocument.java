@@ -37,7 +37,7 @@ public class PdfDocument {
         this.outputPath = getOutputPath(outputPath);
     }
 
-    public void createPdfDocument() {
+    public boolean createPdfDocument() {
         Document document = new Document();
         try {
             PdfWriter.getInstance(document, new FileOutputStream(String.format(this.outputPath + "/%s_report_%s.pdf", reportType, LocalDate.now().toString())));
@@ -50,8 +50,10 @@ public class PdfDocument {
             addTable(document);
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
+            return false;
         }
         document.close();
+        return true;
     }
 
     private List<String> getFieldsFrom(List<? extends Object> objects) {
@@ -72,7 +74,8 @@ public class PdfDocument {
         PdfPTable table = createTable();
 
         PdfPCell cellOne = new PdfPCell(getImage());
-        PdfPCell cellTwo = new PdfPCell(new Phrase("REPORT OF " + reportType, DEFAULT_FONT_TITLE));
+        PdfPCell cellTwo = new PdfPCell();
+        cellTwo.addElement(getReportName());
         cellTwo.addElement(getReportDetails());
         cellOne.setBorder(NO_BORDER);
         cellTwo.setBorder(NO_BORDER);
@@ -86,6 +89,10 @@ public class PdfDocument {
         document.addCreationDate();
         document.addTitle("REPORT");
         document.add(new Paragraph(new Phrase("\n")));
+    }
+
+    private Element getReportName() {
+        return new Phrase("REPORT OF " + reportType.toUpperCase(), DEFAULT_FONT_TITLE);
     }
 
     private Element getReportDetails() {
