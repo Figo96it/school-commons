@@ -12,16 +12,11 @@ import static junit.framework.Assert.assertFalse;
 public class MockDataResolverTest {
 
     @Test
-    public void checkIfDataISNotNull() {
+    public void checkIfDataIsNotNull() {
         List<Parent> parents = MockDataResolver.findAllParents();
-        boolean isAnyNull = false;
-        for (int i = 0; i < parents.size(); i++) {
-            if (checkIfAnyFieldIsNull(parents.get(i))) {
-                isAnyNull = true;
-                break;
-            }
+        for (Parent parent : parents) {
+            assertFalse(checkIfAnyFieldIsNull(parent));
         }
-        assertFalse(isAnyNull);
     }
 
     private static boolean checkIfAnyFieldIsNull(Object object) {
