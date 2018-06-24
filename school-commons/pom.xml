@@ -26,6 +26,8 @@
             <apache_commons_version>3.4</apache_commons_version>
             <lombok_version>1.16.20</lombok_version>
             <open_csv_version>4.0</open_csv_version>
+            <itextpdf_version>5.5.10</itextpdf_version>
+            <pdfbox_version>2.0.4</pdfbox_version>
     </properties>
 
     <dependencies>
@@ -57,6 +59,11 @@
             <groupId>com.opencsv</groupId>
             <artifactId>opencsv</artifactId>
             <version>${open_csv_version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>itextpdf</artifactId>
+            <version>${itextpdf_version}</version>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
