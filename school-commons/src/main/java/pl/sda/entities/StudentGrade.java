@@ -1,6 +1,6 @@
 package pl.sda.entities;
 
-public class studentGrade {
+public class StudentGrade {
     private int id;
     private int idStudent;
     private int idGrade;
@@ -31,7 +31,7 @@ public class studentGrade {
 
     @Override
     public String toString() {
-        return "studentGrade{" +
+        return "StudentGrade{" +
                 "id=" + id +
                 ", idStudent=" + idStudent +
                 ", idGrade=" + idGrade +
