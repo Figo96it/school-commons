@@ -6,10 +6,13 @@ import pl.sda.mocks.MockDataResolver;
 import pl.sda.model.Class;
 import pl.sda.model.Parent;
 
+import java.io.File;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -17,12 +20,18 @@ import static org.junit.Assert.assertThat;
 public class PdfDocumentTest {
     private final String PATH = ".";
 
+    private boolean checkIfExists(String filePathString) {
+        File f = new File(filePathString);
+        return f.exists() && !f.isDirectory();
+    }
+
     @Test
-    public void runTest() {
+    public void createParentReport() {
 
         MockDataResolver dbMock = new MockDataResolver();
         PdfDocument pdfDocument = new PdfDocument(dbMock.findAllParents(), PATH);
         pdfDocument.createPdfDocument();
+        assertTrue(checkIfExists(String.format(PATH + "/Parent_report_%s.pdf", LocalDate.now().toString())));
     }
 
     @Test
@@ -33,9 +42,9 @@ public class PdfDocumentTest {
         Class class4 = new Class(4L, 1L, "D", 1993, 4L);
         Class class5 = new Class(5L, 1L, "SKAUCI", 1994, 1L);
         Class class6 = new Class(6L, 1L, "D", 1990, 2L);
-        PdfDocument pdfDocument = new PdfDocument(Arrays.asList(new Object[]{class1, class2, class3, class4, class5, class6}), "C:\\__SDA_java\\_FINAL_PROJECT");
+        PdfDocument pdfDocument = new PdfDocument(Arrays.asList(new Class[]{class1, class2, class3, class4, class5, class6}), PATH);
         pdfDocument.createPdfDocument();
-
+        assertTrue(checkIfExists(String.format(PATH + "/Class_report_%s.pdf", LocalDate.now().toString())));
     }
 
 
@@ -53,5 +62,12 @@ public class PdfDocumentTest {
         ref.add("MAIL");
         assertThat(pdfDocument.columnNames, is(ref));
 
+    }
+
+    @Test
+    public void integerListTest(){
+        PdfDocument pdfDocument = new PdfDocument(Arrays.asList(new Integer[]{1,2,3,4,5}), PATH);
+        pdfDocument.createPdfDocument();
+        assertTrue(checkIfExists(String.format(PATH + "/Integer_report_%s.pdf", LocalDate.now().toString())));
     }
 }
