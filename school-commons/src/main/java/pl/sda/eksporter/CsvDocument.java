@@ -26,7 +26,7 @@ public class CsvDocument {
      */
     private static final String DEFAULT_CSV_PATH = "../..";
 
-    public static boolean write(List<Object> objectsToSave, String outputPath) throws IOException {
+    public static boolean write(List<? extends Object> objectsToSave, String outputPath) throws IOException {
         if (objectsToSave == null || objectsToSave.isEmpty()) {
             throw new IllegalArgumentException("Cannot save NULL / EMPTY list!");
         }
@@ -53,7 +53,7 @@ public class CsvDocument {
         }
     }
 
-    private static Pair<Integer, String> getPathFrom(String outputPath, List<Object> objectsToSave) {
+    private static Pair<Integer, String> getPathFrom(String outputPath, List<? extends Object> objectsToSave) {
         for (int i = 0; i < objectsToSave.size(); i++) {
             if (objectsToSave.get(i) != null) {
                 return new Pair<>(i, String.format("%s/%s_dump_%s.csv", getOutputPath(outputPath),
