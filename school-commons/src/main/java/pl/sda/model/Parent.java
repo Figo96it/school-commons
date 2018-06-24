@@ -20,7 +20,7 @@ public class Parent {
     @Column
     private String firstName;
     @Column
-    private String studentId;
+    private int studentId;
     @Column
     private String telNumber;
     @Column
