@@ -54,10 +54,4 @@ public class PdfDocumentTest {
         assertThat(pdfDocument.columnNames, is(ref));
 
     }
-
-
-//    @Test
-//    public void testDate(){
-//        System.out.println(PdfDocument.getCreationDate());
-//    }
 }
