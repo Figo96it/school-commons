@@ -19,7 +19,7 @@ import static junit.framework.TestCase.assertTrue;
 
 @RunWith(JUnitParamsRunner.class)
 public class CsvDocumentTest {
-    private String PATH = "C:\\__SDA_java\\_FINAL_PROJECT";
+    private String PATH = ".";
 
     private boolean checkIfExists(String filePathString) {
         File f = new File(filePathString);

@@ -1,6 +1,7 @@
 package pl.sda.eksporter;
 
 import com.opencsv.CSVWriter;
+import javafx.util.Pair;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Writer;
@@ -17,19 +18,21 @@ public class CsvDocument {
 
     /**
      * Will create a csv file "[outputPath]/[classSimpleName]_dump_[currentDate].csv"
+     *
      * @param objectsToSave List of objects to be saved to csv.
      * @param outputPath    Directory where to save to output path
      * @return true if successfully saved
      * @throws IOException
      */
-    private static int startIndex;
+    private static final String DEFAULT_CSV_PATH = "../..";
 
     public static boolean write(List<Object> objectsToSave, String outputPath) throws IOException {
         if (objectsToSave == null || objectsToSave.isEmpty()) {
             throw new IllegalArgumentException("Cannot save NULL / EMPTY list!");
         }
-        startIndex = 0;
-        String csvOutputPath = getPathFrom(outputPath, objectsToSave);
+        Pair<Integer, String> indexAndPath = getPathFrom(outputPath, objectsToSave);
+        int startIndex = indexAndPath.getKey();
+        String csvOutputPath = indexAndPath.getValue();
         // try with resources
         try (
                 Writer writer = Files.newBufferedWriter(Paths.get(csvOutputPath));
@@ -50,13 +53,12 @@ public class CsvDocument {
         }
     }
 
-    private static String getPathFrom(String outputPath, List<Object> objectsToSave) {
+    private static Pair<Integer, String> getPathFrom(String outputPath, List<Object> objectsToSave) {
         for (int i = 0; i < objectsToSave.size(); i++) {
             if (objectsToSave.get(i) != null) {
-                startIndex = i;
-                return String.format("%s/%s_dump_%s.csv", getOutputPath(outputPath),
+                return new Pair<>(i, String.format("%s/%s_dump_%s.csv", getOutputPath(outputPath),
                         objectsToSave.get(i).getClass().getSimpleName(),
-                        LocalDate.now().toString());
+                        LocalDate.now().toString()));
             }
         }
         throw new IllegalArgumentException("Only null elements in list!");
@@ -64,7 +66,7 @@ public class CsvDocument {
 
 
     private static String getOutputPath(String outputPath) {
-        return StringUtils.isBlank(outputPath) ? "../.." : outputPath.replace("\\", "/");
+        return StringUtils.isBlank(outputPath) ? DEFAULT_CSV_PATH : outputPath.replace("\\", "/");
     }
 
     private static String[] getFieldsFrom(Object object) {
