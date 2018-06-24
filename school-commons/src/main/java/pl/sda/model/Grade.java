@@ -1,10 +1,12 @@
 package pl.sda.model;
 
-public class Grade {
 
+
+public class Grade {
     private int id;
     private int subjectId;
     private int studentGradeId;
+    private int grade;
 
     public Grade(int id, int subjectId, int studentGradeId) {
         this.id = id;
@@ -35,6 +37,10 @@ public class Grade {
     public void setStudentGradeId(int studentGradeId) {
         this.studentGradeId = studentGradeId;
     }
+
+    public int getGrade() { return grade;}
+
+    public void setGrade(int grade) {this.grade = grade; }
 
     @Override
     public String toString() {
