@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import pl.sda.eksporter.CsvDocument;
 import pl.sda.model.Class;
-import pl.sda.model.Parents;
+import pl.sda.model.Parent;
 import pl.sda.model.Plan;
 import pl.sda.model.School;
 
@@ -38,16 +38,16 @@ public class CsvDocumentTest {
 
     @Test
     public void checkSavingParents() throws IOException {
-        Parents parent1 = new Parents();
+        Parent parent1 = new Parent();
         parent1.setFirstName("jacek");
         parent1.setSurname("Piekara");
         parent1.setMail("mail@mail.pl");
-        Parents parent2 = new Parents();
+        Parent parent2 = new Parent();
         parent2.setFirstName("anna");
         parent2.setSurname("ldas");
         parent2.setMail("ksahd");
         assertTrue(CsvDocument.write(Arrays.asList(new Object[]{parent1, parent2}), PATH));
-        assertTrue(checkIfExists(PATH + String.format("\\Parents_dump_%s.csv", LocalDate.now().toString())));
+        assertTrue(checkIfExists(String.format("Parent_dump_%s.csv", LocalDate.now().toString())));
     }
 
     @Test
@@ -59,7 +59,7 @@ public class CsvDocumentTest {
         Class class5 = new Class(5L, 1L, "SKAUCI", 1994, 1L);
         Class class6 = new Class(6L, 1L, "D", 1990, 2L);
         assertTrue(CsvDocument.write(Arrays.asList(new Object[]{class1, class2, class3, class4, class5, class6}), PATH));
-        assertTrue(checkIfExists(PATH + String.format("\\Class_dump_%s.csv", LocalDate.now().toString())));
+        assertTrue(checkIfExists(String.format("Class_dump_%s.csv", LocalDate.now().toString())));
     }
 
     @Test
@@ -71,7 +71,7 @@ public class CsvDocumentTest {
         Plan plan5 = new Plan(5, "e", 1990);
         Plan plan6 = new Plan(6, "f", 1990);
         assertTrue(CsvDocument.write(Arrays.asList(new Object[]{plan1, plan2, plan3, plan4, plan5, plan6}), PATH));
-        assertTrue(checkIfExists(PATH + String.format("\\Plan_dump_%s.csv", LocalDate.now().toString())));
+        assertTrue(checkIfExists(String.format("Plan_dump_%s.csv", LocalDate.now().toString())));
     }
 
     @Test
@@ -82,13 +82,13 @@ public class CsvDocumentTest {
         school.setId(1);
         school.setName("SUPER SZKOLA");
         assertTrue(CsvDocument.write(Arrays.asList(new Object[]{school}), PATH));
-        assertTrue(checkIfExists(PATH + String.format("\\School_dump_%s.csv", LocalDate.now().toString())));
+        assertTrue(checkIfExists(String.format("School_dump_%s.csv", LocalDate.now().toString())));
     }
 
     @Test
     public void checkIfFirstElementEmpty() throws IOException {
-        Parents parent1 = null;
-        Parents parent2 = new Parents();
+        Parent parent1 = null;
+        Parent parent2 = new Parent();
         parent2.setFirstName("anna");
         parent2.setSurname("ldas");
         parent2.setMail("ksahd");
@@ -97,8 +97,8 @@ public class CsvDocumentTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void checkIfWholeListEmpty() throws IOException {
-        Parents parent1 = null;
-        Parents parent2 = null;
+        Parent parent1 = null;
+        Parent parent2 = null;
         assertTrue(CsvDocument.write(Arrays.asList(new Object[]{parent1, parent2}), PATH));
     }
 }
