@@ -1,4 +1,4 @@
-package pl.sda.entities;
+package pl.sda.model;
 
 public class StudentGrade {
     private int id;
