@@ -19,29 +19,44 @@
     </build>
     <name>school-commons</name>
     <url>http://maven.apache.org</url>
+
+    <properties>
+            <junit_params_version>1.1.1</junit_params_version>
+            <junit_version>4.12</junit_version>
+            <apache_commons_version>3.4</apache_commons_version>
+            <lombok_version>1.16.20</lombok_version>
+            <open_csv_version>4.0</open_csv_version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>pl.pragmatists</groupId>
             <artifactId>JUnitParams</artifactId>
-            <version>1.1.1</version>
+            <version>${junit_params_version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>${junit_version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.4</version>
+            <version>${apache_commons_version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.16.20</version>
+            <version>${lombok_version}</version>
             <scope>provided</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-csv -->
+        <dependency>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>${open_csv_version}</version>
         </dependency>
     </dependencies>
 </project>
