@@ -73,7 +73,7 @@ public class PdfDocument {
         Paragraph paragraph = new Paragraph();
         PdfPTable table = createTable();
 
-        PdfPCell cellOne = new PdfPCell(getImage());
+        PdfPCell cellOne = new PdfPCell(getImage("hogwarts_logo.png"));
         PdfPCell cellTwo = new PdfPCell();
         cellTwo.addElement(getReportName());
         cellTwo.addElement(getReportDetails());
@@ -106,9 +106,9 @@ public class PdfDocument {
         return table;
     }
 
-    private Image getImage() throws IOException, BadElementException {
+    private Image getImage(String imageName) throws IOException, BadElementException {
         ClassLoader classLoader = getClass().getClassLoader();
-        Image image = Image.getInstance(Objects.requireNonNull(classLoader.getResource("images/hogwarts_logo.png")));
+        Image image = Image.getInstance(Objects.requireNonNull(classLoader.getResource("images/" + imageName)));
         image.scaleAbsolute(100, 100);
         return image;
     }
