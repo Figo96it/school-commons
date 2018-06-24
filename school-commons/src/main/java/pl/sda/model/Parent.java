@@ -1,9 +1,11 @@
 package pl.sda.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
+@AllArgsConstructor
 @Data
-public class Parents {
+public class Parent {
     private int id;
     private String surname;
     private String firstName;
