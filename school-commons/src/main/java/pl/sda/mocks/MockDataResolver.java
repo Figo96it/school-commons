@@ -12,7 +12,7 @@ public class MockDataResolver {
     private static final int NUMBER_OF_RECORDS = 100;
     private static List<Parent> parentList = new ArrayList<>();
 
-    private static List<Parent> getListOfFakeDataParents(int numberOfParents) {
+    private static List<Parent> generateMockDataParents(int numberOfParents) {
         for (int i = 0; i < numberOfParents; i++) {
             Fairy fairy = Fairy.create();
             Person person = fairy.person();
@@ -25,10 +25,6 @@ public class MockDataResolver {
     }
 
     public static List<Parent> findAllParents() {
-        return getListOfFakeDataParents(NUMBER_OF_RECORDS);
-    }
-
-    public static void main(String[] args) {
-        System.out.println(getListOfFakeDataParents(10));
+        return generateMockDataParents(NUMBER_OF_RECORDS);
     }
 }
