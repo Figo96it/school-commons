@@ -17,6 +17,10 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static com.itextpdf.text.BaseColor.LIGHT_GRAY;
+import static com.itextpdf.text.Element.ALIGN_CENTER;
+import static com.itextpdf.text.Rectangle.NO_BORDER;
+
 public class PdfDocument {
 
     private static final String DEFAULT_PDF_PATH = ".";
@@ -24,6 +28,8 @@ public class PdfDocument {
     public List<String> columnNames;
     private List<?> objectsToSave;
     private String reportType;
+    private static final Font DEFAULT_FONT_TITLE = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
+    private static final Font DEFAULT_FONT_TEXT = new Font(Font.FontFamily.TIMES_ROMAN, 10);
 
     public PdfDocument(List<? extends Object> objects, String outputPath) {
         this.objectsToSave = objects;
@@ -63,19 +69,13 @@ public class PdfDocument {
     private void addTitle(Document document) throws DocumentException, IOException {
         //Create Paragraph
         Paragraph paragraph = new Paragraph();
-
-        PdfPTable table = new PdfPTable(2);
-        table.setWidths(new float[]{1, 2});
-        table.setWidthPercentage(80);
-        Phrase phrase = new Phrase("REPORT OF " + reportType, new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD));
+        PdfPTable table = createTable();
 
         PdfPCell cellOne = new PdfPCell(getImage());
-
-        PdfPCell cellTwo = new PdfPCell();
-        cellTwo.addElement(phrase);
-        cellTwo.addElement(new Phrase("This is super report.\n" + "Generated on:\t" + getCreationDate() + "\nBy: " + System.getProperty("user.name")));
-        cellOne.setBorder(Rectangle.NO_BORDER);
-        cellTwo.setBorder(Rectangle.NO_BORDER);
+        PdfPCell cellTwo = new PdfPCell(new Phrase("REPORT OF " + reportType, DEFAULT_FONT_TITLE));
+        cellTwo.addElement(getReportDetails());
+        cellOne.setBorder(NO_BORDER);
+        cellTwo.setBorder(NO_BORDER);
         table.addCell(cellOne);
         table.addCell(cellTwo);
 
@@ -86,6 +86,17 @@ public class PdfDocument {
         document.addCreationDate();
         document.addTitle("REPORT");
         document.add(new Paragraph(new Phrase("\n")));
+    }
+
+    private Element getReportDetails() {
+        return new Phrase("This is super report.\n" + "Generated on:\t" + getCreationDate() + "\nBy: " + System.getProperty("user.name"));
+    }
+
+    private PdfPTable createTable() throws DocumentException {
+        PdfPTable table = new PdfPTable(2);
+        table.setWidths(new float[]{1, 2});
+        table.setWidthPercentage(80);
+        return table;
     }
 
     private Image getImage() throws IOException, BadElementException {
@@ -106,9 +117,9 @@ public class PdfDocument {
     private void addTableHeader(PdfPTable table, List<String> listOfFields) {
         listOfFields.forEach(columnTitle -> {
             PdfPCell header = new PdfPCell();
-            header.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            header.setBackgroundColor(LIGHT_GRAY);
             header.setBorderWidth(2);
-            header.setPhrase(new Phrase(columnTitle, new Font(Font.FontFamily.TIMES_ROMAN, 10)));
+            header.setPhrase(new Phrase(columnTitle, DEFAULT_FONT_TEXT));
             table.addCell(header);
         });
     }
@@ -128,8 +139,8 @@ public class PdfDocument {
             try {
                 Object value = field.get(object);
 
-                PdfPCell horizontalAlignCell = new PdfPCell(new Phrase(value == null ? "" : value.toString(), new Font(Font.FontFamily.TIMES_ROMAN, 10)));
-                horizontalAlignCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                PdfPCell horizontalAlignCell = new PdfPCell(new Phrase(value == null ? "" : value.toString(), DEFAULT_FONT_TEXT));
+                horizontalAlignCell.setHorizontalAlignment(ALIGN_CENTER);
                 table.addCell(horizontalAlignCell);
 
             } catch (IllegalAccessException e) {
