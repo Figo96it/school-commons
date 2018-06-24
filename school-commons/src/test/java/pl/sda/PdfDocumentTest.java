@@ -33,6 +33,20 @@ public class PdfDocumentTest {
         assertTrue(pdfDocument.createPdfDocument());
         assertTrue(checkIfExists(String.format(PATH + "/Parent_report_%s.pdf", LocalDate.now().toString())));
     }
+    @Test
+    public void createGradesReport() {
+        PdfDocument pdfDocument = new PdfDocument(MockDataResolver.findAllGrades(), PATH);
+        assertTrue(pdfDocument.createPdfDocument());
+        assertTrue(checkIfExists(String.format(PATH + "/Grade_report_%s.pdf", LocalDate.now().toString())));
+    }
+
+    @Test
+    public void createStudentReport() {
+
+        PdfDocument pdfDocument = new PdfDocument(MockDataResolver.findAllStudents(), PATH);
+        assertTrue(pdfDocument.createPdfDocument());
+        assertTrue(checkIfExists(String.format(PATH + "/Student_report_%s.pdf", LocalDate.now().toString())));
+    }
 
     @Test
     public void createClassReport() {
