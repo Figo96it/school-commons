@@ -1,10 +1,20 @@
 package pl.sda.model;
 
-public class School {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+
+public class School {
+    @Id
     private int id;
+    @Column
     private String name;
+    @Column
     private String address;
+    @Column
     private int classId;
 
     public int getId() {

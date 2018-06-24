@@ -1,9 +1,16 @@
 package pl.sda.model;
 
-public class Grade {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+@Entity
+public class Grade {
+    @Id
     private int id;
+    @Column
     private int subjectId;
+    @Column
     private int studentGradeId;
 
     public Grade(int id, int subjectId, int studentGradeId) {

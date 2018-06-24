@@ -1,9 +1,16 @@
 package pl.sda.model;
 
-public class Plan {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+@Entity
+public class Plan {
+    @Id
     private int id;
+    @Column
     private String className;
+    @Column
     private int year;
 
     public Plan(int id, String className, int year) {
