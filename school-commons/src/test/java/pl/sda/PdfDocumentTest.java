@@ -10,6 +10,7 @@ import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import static junit.framework.TestCase.assertTrue;
@@ -36,12 +37,12 @@ public class PdfDocumentTest {
 
     @Test
     public void createClassReport() {
-        Class class1 = new Class(1L, 1L, "A", 1990, 1L);
-        Class class2 = new Class(2L, 1L, "B", 1991, 2L);
-        Class class3 = new Class(3L, 1L, "C", 1992, 3L);
-        Class class4 = new Class(4L, 1L, "D", 1993, 4L);
-        Class class5 = new Class(5L, 1L, "SKAUCI", 1994, 1L);
-        Class class6 = new Class(6L, 1L, "D", 1990, 2L);
+        Class class1 = new Class(1, 1, "A", new Date(1990), 1);
+        Class class2 = new Class(2, 1, "B", new Date(1991), 2);
+        Class class3 = new Class(3, 1, "C", new Date(1992), 3);
+        Class class4 = new Class(4, 1, "D", new Date(1993), 4);
+        Class class5 = new Class(5, 1, "SKAUCI", new Date(1994), 1);
+        Class class6 = new Class(6, 1, "D", new Date(1990), 2);
         PdfDocument pdfDocument = new PdfDocument(Arrays.asList(new Class[]{class1, class2, class3, class4, class5, class6}), PATH);
         assertTrue(pdfDocument.createPdfDocument());
         assertTrue(checkIfExists(String.format(PATH + "/Class_report_%s.pdf", LocalDate.now().toString())));
