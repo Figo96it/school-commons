@@ -10,9 +10,9 @@ import lombok.ToString;
 @ToString
 @Data
 public class Employee {
-    private Long id;
+    private Integer id;
     private String firstName;
     private String lastName;
     private String position;
-    private Long classId;
+    private Integer classId;
 }
