@@ -10,6 +10,7 @@ import lombok.ToString;
 @ToString
 @Data
 public class Subject {
+    private Integer id;
     private String  subjectName;
-    private int planId;
+    private Integer planId;
 }

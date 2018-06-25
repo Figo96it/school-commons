@@ -10,7 +10,7 @@ import lombok.ToString;
 @ToString
 @Data
 public class School {
-    private int id;
+    private Integer id;
     private String name;
     private String address;
     private int classId;

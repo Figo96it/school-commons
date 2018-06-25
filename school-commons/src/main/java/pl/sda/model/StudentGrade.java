@@ -10,7 +10,7 @@ import lombok.ToString;
 @ToString
 @Data
 public class StudentGrade {
-    private int id;
-    private int idStudent;
-    private int idGrade;
+    private Integer id;
+    private Integer idStudent;
+    private Integer idGrade;
 }
