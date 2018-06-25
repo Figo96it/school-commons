@@ -35,7 +35,7 @@ public class MockDataResolver {
             Fairy fairy = Fairy.create();
             Person person = fairy.person();
             Parent parent = new Parent(i + 1, person.getLastName(),
-                    person.getFirstName(), String.valueOf(i + 1), person.getTelephoneNumber(),
+                    person.getFirstName(),i + 1, person.getTelephoneNumber(),
                     person.getTelephoneNumber(), person.getEmail());
             parentList.add(parent);
         }
