@@ -2,9 +2,13 @@ package pl.sda.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-@Data
 @AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@Data
 public class Grade {
     private int id;
     private int subjectId;
