@@ -10,8 +10,8 @@ import lombok.ToString;
 @ToString
 @Data
 public class Grade {
-    private int id;
-    private int subjectId;
-    private int studentGradeId;
-    private int grade;
+    private Integer id;
+    private Integer subjectId;
+    private Integer studentGradeId;
+    private Integer grade;
 }
