@@ -5,14 +5,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.Date;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Data
 public class Class {
-    private Long id;
-    private Long idSchool;
+    private Integer id;
+    private Integer idSchool;
     private String className;
-    private Integer year;
-    private Long idFormTutor;
+    private Date year;
+    private Integer idFormTutor;
 }
