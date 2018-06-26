@@ -56,8 +56,8 @@ public class PdfDocumentTest {
         PdfDocument pdfDocument = new PdfDocument(Arrays.asList(new Parent[]{parent1}), PATH);
         List<String> ref = new ArrayList<>();
         ref.add("ID");
-        ref.add("SURNAME");
         ref.add("FIRSTNAME");
+        ref.add("SURNAME");
         ref.add("STUDENTID");
         ref.add("TELNUMBER");
         ref.add("MOBILEPHONENUMBER");
