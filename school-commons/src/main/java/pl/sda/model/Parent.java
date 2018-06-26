@@ -5,16 +5,38 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.persistence.*;
+
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Data
+@Entity
+@Table(name = "parent")
 public class Parent {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
-    private String surname;
+
+    @Column(name = "first_name")
     private String firstName;
+
+    @Column(name = "surname")
+    private String surname;
+
+    @OneToMany
+    @JoinColumn(name = "student_id")
     private Integer studentId;
+
+    @Column(name ="tell_number" )
     private String telNumber;
+
+    @Column(name = "mobile_phone")
     private String mobilePhoneNumber;
+
+    @Column(name = "mail")
     private String mail;
 }
+

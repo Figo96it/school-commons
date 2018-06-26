@@ -5,12 +5,26 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.persistence.*;
+
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Data
+@Entity
+@Table(name = "grade")
 public class StudentGrade {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
+
+    @OneToOne
+    @JoinColumn(name = "id_student")
     private Integer idStudent;
+
+    @OneToOne
+    @JoinColumn(name = "id_grade")
     private Integer idGrade;
 }

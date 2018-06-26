@@ -4,13 +4,25 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import javax.persistence.*;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Data
+@Entity
+@Table(name = "school_subject")
 public class Subject {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_subject")
     private Integer id;
-    private String  subjectName;
+
+    @Column(name = "subject_name")
+    private String subjectName;
+
+    @OneToMany
+    @JoinColumn(name = "id_plan")
     private Integer planId;
 }

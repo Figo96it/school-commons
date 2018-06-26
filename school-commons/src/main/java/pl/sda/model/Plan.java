@@ -5,12 +5,24 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.persistence.*;
+
+
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Data
+@Entity
+@Table(name = "plan")
 public class Plan {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_employee")
     private int id;
-    private String className;
-    private int year;
+
+    @OneToMany
+    @JoinColumn(name = "id_class")
+    private Class aClass;
+
 }
