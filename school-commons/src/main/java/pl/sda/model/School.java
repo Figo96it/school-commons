@@ -1,51 +1,25 @@
 package pl.sda.model;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
+import javax.persistence.*;
+
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@Entity
 public class School {
 
-    private int id;
+@Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+@Column(name = "id")
+    private Integer id;
+@Column(name = "name")
     private String name;
+@Column(name = "address")
     private String address;
-    private int classId;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public int getClassId() {
-        return classId;
-    }
-
-    public void setClassId(int classId) {
-        this.classId = classId;
-    }
-
-    @Override
-    public String toString() {
-        return "School{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                ", classId=" + classId +
-                '}';
-    }
 }

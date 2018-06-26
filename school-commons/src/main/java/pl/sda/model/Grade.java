@@ -2,12 +2,32 @@ package pl.sda.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@Entity
+@Table(name = "grade")
 public class Grade {
-    private int id;
-    private int subjectId;
-    private int studentGradeId;
-    private int grade;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
+
+    @OneToOne
+    @JoinColumn(name = "subject_id")
+    private Integer subjectId;
+
+    @OneToOne
+    @JoinColumn(name = "student_grade_id")
+    private Integer studentGradeId;
+
+    @Column(name = "grade")
+    private Integer grade;
 }
