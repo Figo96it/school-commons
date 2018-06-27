@@ -7,7 +7,6 @@ import lombok.ToString;
 
 import javax.persistence.*;
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,7 +18,7 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_employee")
-    private Long id;
+    private Integer id;
 
     @Column(name = "first_name")
     private String firstName;
@@ -33,4 +32,5 @@ public class Employee {
     @OneToOne
     @JoinColumn(name = "id_class")
     private Class aClass;
+
 }

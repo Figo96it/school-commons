@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
 import javax.persistence.*;
 
 
@@ -24,5 +23,6 @@ public class Plan {
     @OneToOne
     @JoinColumn(name = "id_class")
     private Class aClass;
+
 
 }

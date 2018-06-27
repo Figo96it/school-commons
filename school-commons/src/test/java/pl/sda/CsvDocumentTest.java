@@ -51,12 +51,14 @@ public class CsvDocumentTest {
 
     @Test
     public void checkSavingClass() throws IOException {
+
         Class class1 = new Class(1, new School(), "A", new Date(1990), new Employee());
         Class class2 = new Class(2, new School(), "B", new Date(1991), new Employee());
         Class class3 = new Class(3, new School(), "C", new Date(1992), new Employee());
         Class class4 = new Class(4, new School(), "D", new Date(1993), new Employee());
         Class class5 = new Class(5, new School(), "E", new Date(1994), new Employee());
         Class class6 = new Class(6, new School(), "F", new Date(1995), new Employee());
+
         assertTrue(CsvDocument.write(Arrays.asList(new Object[]{class1, class2, class3, class4, class5, class6}), PATH));
         assertTrue(checkIfExists(String.format("Class_dump_%s.csv", LocalDate.now().toString())));
     }

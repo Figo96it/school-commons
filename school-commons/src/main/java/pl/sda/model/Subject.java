@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import javax.persistence.*;
 
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,6 +14,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "school_subject")
 public class Subject {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,3 +28,4 @@ public class Subject {
     @JoinColumn(name = "id_plan")
     private Plan planId;
 }
+

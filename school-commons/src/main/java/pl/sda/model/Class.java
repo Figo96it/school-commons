@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -33,7 +32,7 @@ public class Class implements Serializable {
     private Date year;
 
     @OneToOne
-    @JoinColumn(name = "form_tutor_id" )
+    @JoinColumn(name = "form_tutor_id")
     private Employee formTutor;
 
     @Override

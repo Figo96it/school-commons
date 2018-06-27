@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
 import javax.persistence.*;
 
 @Data
@@ -30,4 +29,5 @@ public class Grade {
 
     @Column(name = "grade")
     private Integer grade;
+
 }

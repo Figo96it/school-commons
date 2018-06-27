@@ -3,9 +3,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
 import javax.persistence.*;
-
 
 @Data
 @AllArgsConstructor
@@ -18,8 +16,11 @@ public class School {
 @GeneratedValue(strategy = GenerationType.IDENTITY)
 @Column(name = "id")
     private Integer id;
+
 @Column(name = "name")
     private String name;
+
 @Column(name = "address")
     private String address;
+
 }
