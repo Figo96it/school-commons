@@ -24,7 +24,7 @@ public class Class implements Serializable {
 
     @OneToOne
     @JoinColumn(name = "id_school")
-    private Integer idSchool;
+    private School idSchool;
 
     @Column(name = "class_name")
     private String className;

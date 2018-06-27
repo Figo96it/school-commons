@@ -26,9 +26,9 @@ public class Parent {
     @Column(name = "surname")
     private String surname;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "student_id")
-    private Integer studentId;
+    private Student aStudent;
 
     @Column(name ="tell_number" )
     private String telNumber;

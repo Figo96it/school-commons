@@ -19,9 +19,9 @@ public class Plan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_employee")
-    private int id;
+    private Integer id;
 
-    @OneToMany
+    @OneToOne
     @JoinColumn(name = "id_class")
     private Class aClass;
 

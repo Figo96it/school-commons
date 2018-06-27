@@ -32,5 +32,5 @@ public class Employee {
 
     @OneToOne
     @JoinColumn(name = "id_class")
-    private Long classId;
+    private Class aClass;
 }

@@ -22,7 +22,7 @@ public class Subject {
     @Column(name = "subject_name")
     private String subjectName;
 
-    @OneToMany
+    @OneToOne
     @JoinColumn(name = "id_plan")
-    private Integer planId;
+    private Plan planId;
 }

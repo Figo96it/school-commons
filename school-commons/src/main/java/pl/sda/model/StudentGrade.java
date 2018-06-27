@@ -22,9 +22,9 @@ public class StudentGrade {
 
     @OneToOne
     @JoinColumn(name = "id_student")
-    private Integer idStudent;
+    private Student aStudent;
 
     @OneToOne
     @JoinColumn(name = "id_grade")
-    private Integer idGrade;
+    private Grade aGrade;
 }

@@ -37,8 +37,8 @@ public class MockDataResolverTest {
         List<Grade> grades = MockDataResolver.findAllGrades();
         for (Grade grade : grades) {
             assertTrue(grade.getId() > 0
-                    && grade.getStudentGradeId() > 0
-                    && grade.getSubjectId() > 0);
+                    && (grade.getGrade() != null)
+                    && grade.getASubject() != null);
         }
     }
 
