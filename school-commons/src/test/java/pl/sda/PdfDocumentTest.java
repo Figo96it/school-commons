@@ -61,8 +61,8 @@ public class PdfDocumentTest {
         ref.add("ID");
         ref.add("FIRSTNAME");
         ref.add("SURNAME");
-        ref.add("ASTUDENT");
-        ref.add("TELNUMBER");
+        ref.add("STUDENT");
+        ref.add("TELLNUMBER");
         ref.add("MOBILEPHONENUMBER");
         ref.add("MAIL");
         assertThat(pdfDocument.columnNames, is(ref));

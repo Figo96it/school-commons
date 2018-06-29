@@ -5,7 +5,6 @@ import pl.sda.mocks.MockDataResolver;
 import pl.sda.model.Grade;
 import pl.sda.model.Parent;
 import pl.sda.model.Student;
-
 import java.lang.reflect.Field;
 import java.util.HashSet;
 import java.util.List;
@@ -38,7 +37,7 @@ public class MockDataResolverTest {
         for (Grade grade : grades) {
             assertTrue(grade.getId() > 0
                     && (grade.getGrade() != null)
-                    && grade.getASubject() != null);
+                    && grade.getSubject() != null);
         }
     }
 

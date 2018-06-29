@@ -23,7 +23,7 @@ public class Class implements Serializable {
 
     @OneToOne
     @JoinColumn(name = "id_school")
-    private School idSchool;
+    private School school;
 
     @Column(name = "class_name")
     private String className;
@@ -44,7 +44,7 @@ public class Class implements Serializable {
         Class aClass = (Class) o;
 
         if (id != null ? !id.equals(aClass.id) : aClass.id != null) return false;
-        if (idSchool != null ? !idSchool.equals(aClass.idSchool) : aClass.idSchool != null) return false;
+        if (school != null ? !school.equals(aClass.school) : aClass.school != null) return false;
         if (className != null ? !className.equals(aClass.className) : aClass.className != null) return false;
         if (year != null ? !year.equals(aClass.year) : aClass.year != null) return false;
         return formTutor != null ? formTutor.equals(aClass.formTutor) : aClass.formTutor == null;
@@ -54,7 +54,7 @@ public class Class implements Serializable {
     public int hashCode() {
         int result = super.hashCode();
         result = 31 * result + (id != null ? id.hashCode() : 0);
-        result = 31 * result + (idSchool != null ? idSchool.hashCode() : 0);
+        result = 31 * result + (school != null ? school.hashCode() : 0);
         result = 31 * result + (className != null ? className.hashCode() : 0);
         result = 31 * result + (year != null ? year.hashCode() : 0);
         result = 31 * result + (formTutor != null ? formTutor.hashCode() : 0);
