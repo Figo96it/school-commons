@@ -1,7 +1,6 @@
 package pl.sda;
 
 import org.junit.Test;
-import pl.sda.mocks.MockDataResolver;
 import pl.sda.model.Grade;
 import pl.sda.model.Parent;
 import pl.sda.model.Student;
@@ -13,12 +12,13 @@ import java.util.Set;
 
 import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static pl.sda.mocks.MockDataResolver.*;
 
 public class MockDataResolverTest {
 
     @Test
     public void checkIfParentDataIsNotNull() {
-        List<Parent> parents = MockDataResolver.findAllParents();
+        List<Parent> parents = findAllParents();
         for (Parent parent : parents) {
             assertFalse(checkIfAnyFieldIsNull(parent));
         }
@@ -26,7 +26,7 @@ public class MockDataResolverTest {
 
     @Test
     public void checkIfStudentDataIsNotNull() {
-        List<Student> students = MockDataResolver.findAllStudents();
+        List<Student> students = findAllStudents();
         for (Student student : students) {
             assertFalse(checkIfAnyFieldIsNull(student));
         }
@@ -34,7 +34,7 @@ public class MockDataResolverTest {
 
     @Test
     public void checkIfGradeDataIdIsNotNull() {
-        List<Grade> grades = MockDataResolver.findAllGrades();
+        List<Grade> grades = findAllGrades();
         for (Grade grade : grades) {
             assertTrue(grade.getId() > 0
                     && grade.getStudentGradeId() > 0
@@ -44,7 +44,7 @@ public class MockDataResolverTest {
 
     @Test
     public void checkIfGradeValueIsBetween1And6AndGradeValuesAreNotTheSame() {
-        List<Grade> grades = MockDataResolver.findAllGrades();
+        List<Grade> grades = findAllGrades();
         Set<Integer> gradeSet = new HashSet<>();
         for (Grade grade : grades) {
             gradeSet.add(grade.getGrade());
