@@ -12,6 +12,7 @@ import java.util.Optional;
 import java.util.Random;
 
 import static java.lang.Math.random;
+import static pl.sda.mocks.MockDataResolver.Position.TEACHER;
 
 @Getter
 public class MockDataResolver {
@@ -20,7 +21,7 @@ public class MockDataResolver {
         return schoolsList;
     }
 
-    private enum Position {JANITOR, TEACHER, PRINCIPAL, COOK, LAWYER}
+    public enum Position {JANITOR, TEACHER, PRINCIPAL, COOK, LAWYER}
 
     private enum SubjectEnum {CHEMISTRY, MATH, ENGLISH, HISTORY, PHYSICS, YOGA, GEOGRAPHY, BIOLOGY}
 
@@ -30,12 +31,12 @@ public class MockDataResolver {
     private static List<School> schoolsList = new ArrayList<>();
     private static List<Classroom> classroomList = new ArrayList<>();
     private static List<Employee> employeeList = new ArrayList<>();
-    private static List<Plan> plansList = new ArrayList<>();
+    private static List<Plan> planList = new ArrayList<>();
     private static List<Student> studentList = new ArrayList<>();
     private static List<Parent> parentList = new ArrayList<>();
-    private static List<StudentGrade> studentGradesList = new ArrayList<>();
+    private static List<StudentGrade> studentGradeList = new ArrayList<>();
     private static List<Grade> gradeList = new ArrayList<>();
-    private static List<Subject> subjectsList = new ArrayList<>();
+    private static List<Subject> subjectList = new ArrayList<>();
 
     public static List<Parent> findAllParents() {
         if (parentList == null || parentList.isEmpty()) {
@@ -73,10 +74,10 @@ public class MockDataResolver {
     }
 
     public static List<Subject> findAllSubjects() {
-        if (subjectsList == null || subjectsList.isEmpty()) {
+        if (subjectList == null || subjectList.isEmpty()) {
             return generateMockDataSubject();
         }
-        return subjectsList;
+        return subjectList;
     }
 
 
@@ -137,9 +138,9 @@ public class MockDataResolver {
     private static List<Subject> generateMockDataSubject() {
         SubjectEnum[] values = SubjectEnum.values();
         for (int i = 0; i < values.length; i++) {
-            subjectsList.add(new Subject(i + 1, values[i].name(), new Plan()));
+            subjectList.add(new Subject(i + 1, values[i].name(), new Plan()));
         }
-        return subjectsList;
+        return subjectList;
     }
 
     private static List<Subject> generateMockDataSubject(Plan plan) {
@@ -149,9 +150,9 @@ public class MockDataResolver {
         for (int i = 0; i < values.length; i++) {
             String subjectName = String.format("%s_%s%d", values[i].name(), classroom.getClassName(), classroom.getYear());
 
-            Subject subject = new Subject(subjectsList.size(), subjectName, plan);
+            Subject subject = new Subject(subjectList.size(), subjectName, plan);
             createdSubjects.add(subject);
-            subjectsList.add(subject);
+            subjectList.add(subject);
         }
         return createdSubjects;
     }
@@ -173,8 +174,7 @@ public class MockDataResolver {
         generateMockDataParents(NUMBER_OF_RECORDS);
         connectParentWithStudent();
 
-        generatemockDataStudentGrades();
-        System.out.println();
+        generateMockDataStudentGrades();
     }
 
     private static void connectParentWithStudent() {
@@ -200,7 +200,7 @@ public class MockDataResolver {
         }
     }
 
-    private static void generatemockDataStudentGrades() {
+    private static void generateMockDataStudentGrades() {
         for (int i = 0; i < studentList.size(); i++) {
             Student currentStudent = studentList.get(i);
             List<Subject> studentsSubjects = getSubjectsFrom(currentStudent);
@@ -208,8 +208,8 @@ public class MockDataResolver {
             for (Subject subject : studentsSubjects) {
                 for (int j = 0; j < 5; j++) {
                     Grade grade = createGrade(subject);
-                    StudentGrade studentGrade = new StudentGrade(studentGradesList.size(), currentStudent, grade);
-                    studentGradesList.add(studentGrade);
+                    StudentGrade studentGrade = new StudentGrade(studentGradeList.size(), currentStudent, grade);
+                    studentGradeList.add(studentGrade);
                 }
             }
         }
@@ -229,7 +229,7 @@ public class MockDataResolver {
 
     private static List<Subject> getSubjectsFrom(Student currentStudent) {
         Integer studentsClassroomId = currentStudent.getClassroom().getId();
-        Optional<Plan> classroomsPlan = plansList.stream().filter(plan -> plan.getClassroom().getId().equals(studentsClassroomId)).findFirst();
+        Optional<Plan> classroomsPlan = planList.stream().filter(plan -> plan.getClassroom().getId().equals(studentsClassroomId)).findFirst();
         if (classroomsPlan.isPresent()) {
             Plan plan = classroomsPlan.get();
             return plan.getSubjects();
@@ -239,22 +239,22 @@ public class MockDataResolver {
 
 
     private static void createFakePlanFor(Classroom currentClassroom) {
-        Plan plan = new Plan(plansList.size(), currentClassroom, null);
+        Plan plan = new Plan(planList.size(), currentClassroom, null);
         List<Subject> subjects = generateMockDataSubject(plan);
         plan.setSubjects(subjects);
-        plansList.add(plan);
+        planList.add(plan);
     }
 
     private static void cleanAll() {
         schoolsList = new ArrayList<>();
-        subjectsList = new ArrayList<>();
+        subjectList = new ArrayList<>();
         employeeList = new ArrayList<>();
         classroomList = new ArrayList<>();
         gradeList = new ArrayList<>();
-        plansList = new ArrayList<>();
+        planList = new ArrayList<>();
         parentList = new ArrayList<>();
         studentList = new ArrayList<>();
-        studentGradesList = new ArrayList<>();
+        studentGradeList = new ArrayList<>();
     }
 
     public static School createFakeSchool() {
@@ -267,7 +267,7 @@ public class MockDataResolver {
         Employee employee = new Employee(employeeList.size(),
                 fairyData.person().getFirstName(),
                 fairyData.person().getLastName(),
-                Position.TEACHER.name(),
+                TEACHER.name(),
                 classroom
         );
         employeeList.add(employee);

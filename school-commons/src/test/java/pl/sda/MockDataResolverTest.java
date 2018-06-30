@@ -35,9 +35,7 @@ public class MockDataResolverTest {
     public void checkIfGradeDataIdIsNotNull() {
         List<Grade> grades = findAllGrades();
         for (Grade grade : grades) {
-            assertTrue(grade.getId() > 0
-                    && (grade.getGrade() != null)
-                    && grade.getSubject() != null);
+            assertFalse(checkIfAnyFieldIsNull(grade));
         }
     }
 
@@ -107,11 +105,16 @@ public class MockDataResolverTest {
     }
 
     @Test
-    public void testRun(){
+    public void checkIfFakeDataCreationWorks(){
         MockDataResolver mdr = new MockDataResolver();
-        mdr.createFakeDbDataWithRelations();
+        MockDataResolver.createFakeDbDataWithRelations();
         assertFalse(checkIfAnyFieldIsNull(mdr));
+        assertFalse(checkIfAnyFieldIsNull(MockDataResolver.findAllEmployees()));
+        assertFalse(checkIfAnyFieldIsNull(MockDataResolver.findAllClassrooms()));
+        assertFalse(checkIfAnyFieldIsNull(MockDataResolver.findAllGrades()));
+        assertFalse(checkIfAnyFieldIsNull(MockDataResolver.findAllParents()));
+        assertFalse(checkIfAnyFieldIsNull(MockDataResolver.findAllStudents()));
+        assertFalse(checkIfAnyFieldIsNull(MockDataResolver.findAllSubjects()));
     }
-
 }
 

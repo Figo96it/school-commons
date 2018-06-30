@@ -27,7 +27,7 @@ public class CsvDocument {
      * @return true if successfully saved
      * @throws IOException
      */
-    private static final String DEFAULT_CSV_PATH = "../..";
+    private static final String DEFAULT_CSV_PATH = ".";
 
     public static boolean write(List<?> objectsToSave, String outputPath) throws IOException {
         if (objectsToSave == null || objectsToSave.isEmpty()) {
