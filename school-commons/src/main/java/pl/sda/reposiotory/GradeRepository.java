@@ -1,7 +1,7 @@
 package pl.sda.reposiotory;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import pl.sda.model.Employee;
 
-public interface GradeRepository extends JpaRepository<Employee, Integer> {
+public interface GradeRepository extends CrudRepository<Employee, Integer> {
 }

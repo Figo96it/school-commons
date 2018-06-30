@@ -1,7 +1,7 @@
 package pl.sda.reposiotory;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import pl.sda.model.Subject;
 
-public interface SubjectReposiitory extends JpaRepository<Subject, Integer> {
+public interface SubjectReposiitory extends CrudRepository<Subject, Integer> {
 }
