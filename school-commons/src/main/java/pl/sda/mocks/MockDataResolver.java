@@ -29,32 +29,33 @@ public class MockDataResolver {
         return generateMockDataGrades(NUMBER_OF_RECORDS);
     }
 
+    //student object set to null.
     private static List<Parent> generateMockDataParents(int numberOfParents) {
         for (int i = 0; i < numberOfParents; i++) {
             Fairy fairy = Fairy.create();
             Person person = fairy.person();
             Parent parent = new Parent(i + 1, person.getLastName(),
-                    person.getFirstName(), new Student(), person.getTelephoneNumber(),
+                    person.getFirstName(), null, person.getTelephoneNumber(),
                     person.getTelephoneNumber(), person.getEmail());
             parentList.add(parent);
         }
         return parentList;
     }
-
+    //classroom object set to null.
     private static List<Student> generateMockDataStudents(int numberOfStudents) {
         for (int i = 0; i < numberOfStudents; i++) {
             Fairy fairy = Fairy.create();
             Person person = fairy.person();
-            Student student = new Student(i + 1, new Classroom(), person.getFirstName(), person.getLastName());
+            Student student = new Student(i + 1, null, person.getFirstName(), person.getLastName());
             studentList.add(student);
         }
         return studentList;
     }
-
+    //subject and studentGrade set to null
     private static List<Grade> generateMockDataGrades(int numberOfGrades) {
         for (int i = 0; i < numberOfGrades; i++) {
-            Grade grade = new Grade(i + 1, new Subject(),
-                    new StudentGrade(), (int) (random() * 6 + 1));
+            Grade grade = new Grade(i + 1, null,
+                   null, (int) (random() * 6 + 1));
             gradeList.add(grade);
         }
         return gradeList;

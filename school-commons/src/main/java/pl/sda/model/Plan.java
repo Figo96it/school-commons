@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Data
@@ -18,12 +19,15 @@ public class Plan {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_employee")
+    @Column(name = "id")
     private Integer id;
 
     @OneToOne
     @JoinColumn(name = "id_class")
     private Classroom classroom;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE })
+    private List<Subject> subjects;
 
     @Override
     public boolean equals(Object o) {

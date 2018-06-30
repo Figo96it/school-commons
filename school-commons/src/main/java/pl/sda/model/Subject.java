@@ -24,7 +24,7 @@ public class Subject {
     @Column(name = "subject_name")
     private String subjectName;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE })
     @JoinColumn(name = "id_plan")
     private Plan plan;
 
