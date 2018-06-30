@@ -54,8 +54,7 @@ public class MockDataResolver {
     //subject and studentGrade set to null
     private static List<Grade> generateMockDataGrades(int numberOfGrades) {
         for (int i = 0; i < numberOfGrades; i++) {
-            Grade grade = new Grade(i + 1, null,
-                   null, (int) (random() * 6 + 1));
+            Grade grade = new Grade(i + 1, new Subject(), 5);
             gradeList.add(grade);
         }
         return gradeList;

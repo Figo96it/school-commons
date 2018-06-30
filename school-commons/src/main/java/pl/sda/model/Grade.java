@@ -24,10 +24,6 @@ public class Grade {
     @JoinColumn(name = "subject_id")
     private Subject subject;
 
-    @OneToOne
-    @JoinColumn(name = "student_grade_id")
-    private StudentGrade studentGrade;
-
     @Column(name = "grade")
     private Integer grade;
 
@@ -41,8 +37,6 @@ public class Grade {
 
         if (id != null ? !id.equals(grade1.id) : grade1.id != null) return false;
         if (subject != null ? !subject.equals(grade1.subject) : grade1.subject != null) return false;
-        if (studentGrade != null ? !studentGrade.equals(grade1.studentGrade) : grade1.studentGrade != null)
-            return false;
         return grade != null ? grade.equals(grade1.grade) : grade1.grade == null;
     }
 
@@ -51,7 +45,6 @@ public class Grade {
         int result = super.hashCode();
         result = 31 * result + (id != null ? id.hashCode() : 0);
         result = 31 * result + (subject != null ? subject.hashCode() : 0);
-        result = 31 * result + (studentGrade != null ? studentGrade.hashCode() : 0);
         result = 31 * result + (grade != null ? grade.hashCode() : 0);
         return result;
     }
