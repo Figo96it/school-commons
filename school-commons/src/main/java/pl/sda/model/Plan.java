@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Data
@@ -24,6 +25,8 @@ public class Plan {
     @OneToOne
     @JoinColumn(name = "id_class")
     private Classroom classroom;
+
+    private List<Subject> subjects;
 
     @Override
     public boolean equals(Object o) {
