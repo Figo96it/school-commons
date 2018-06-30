@@ -121,9 +121,64 @@ public class MockDataResolver {
         return subjectsList;
     }
 
+    private static void generateMockDataSubject(Plan plan) {
+        SubjectEnum[] values = SubjectEnum.values();
+        Classroom classroom = plan.getClassroom();
+        for (int i = 0; i < values.length; i++) {
+            String subjectName = String.format("%s_%s%d", values[i].name(), classroom.getClassName(), classroom.getYear());
+
+            Subject subject = new Subject(subjectsList.size(), subjectName, plan);
+            subjectsList.add(subject);
+        }
+    }
+
 
     public static void createFakeDbDataWithRelations() {
         cleanAll();
+        // 2 schools
+        schoolsList.add(createFakeSchool());
+        schoolsList.add(createFakeSchool());
+        // 10 classrooms
+        generateMockDataClassroom(NUMBER_OF_RECORDS / 10);
+        // Fill classrooms with employees
+        for (int i = 0; i < classroomList.size(); i++) {
+            Classroom currentClassroom = classroomList.get(i);
+            currentClassroom.setSchool(schoolsList.get(i % 2));
+            createFakeEmployeeFor(currentClassroom);
+            createFakePlanFor(currentClassroom);
+        }
+
+        // create 100 students
+        generateMockDataStudents(NUMBER_OF_RECORDS);
+        for (int i = 0; i < studentList.size(); i++) {
+            Student currentStudent = studentList.get(i);
+            currentStudent.setClassroom(classroomList.get(i / classroomList.size()));
+        }
+
+        generateMockDataParents(NUMBER_OF_RECORDS);
+        for (int i = 0; i < parentList.size(); i++) {
+            Parent currentParent = parentList.get(i);
+            currentParent.setStudent(studentList.get(i));
+        }
+        generateMockDataSubject();
+
+       // create 5 grades per subject per student
+        generateMockDataGradesForAllSubjects(NUMBER_OF_RECORDS * SubjectEnum.values().length * 5);
+
+
+    }
+
+    private static void generateMockDataGradesForAllSubjects(int numberOfGrades) {
+        SubjectEnum[] values = SubjectEnum.values();
+        for (int i = 0; i < numberOfGrades; i += values.length) {
+            for (int j = 0; j < values.length ; j++) {
+                // FAKAP!!! wczesniej utworzyc subjecty!!!
+            }
+        }
+    }
+
+    private static void createFakePlanFor(Classroom currentClassroom) {
+        return;
     }
 
     private static void cleanAll() {
@@ -140,8 +195,19 @@ public class MockDataResolver {
 
     public static School createFakeSchool() {
         return new School(schoolsList.size() + 1,
-                            fairyData.company().getName(),
-                            fairyData.person().getAddress().toString());
+                fairyData.company().getName(),
+                fairyData.person().getAddress().toString());
+    }
+
+    private static void createFakeEmployeeFor(Classroom classroom) {
+        Employee employee = new Employee(employeeList.size(),
+                fairyData.person().getFirstName(),
+                fairyData.person().getLastName(),
+                Position.TEACHER.name(),
+                classroom
+        );
+        employeeList.add(employee);
+        classroom.setFormTutor(employee);
     }
 
 

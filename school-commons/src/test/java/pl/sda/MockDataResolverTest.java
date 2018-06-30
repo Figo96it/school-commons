@@ -107,5 +107,24 @@ public class MockDataResolverTest {
         System.out.println(fakeSchool);
         assertFalse(checkIfAnyFieldIsNull(fakeSchool));
     }
+
+    @Test
+    public void playWithIndexes(){
+        int a = 5;
+        int counter = 0;
+        for (int i = 0; i < 10; i += 5) {
+            for (int j = 0; j < a ; j++) {
+
+                System.out.println(counter+ " "+ i + "\t" + j );
+                counter++;
+
+
+            }
+        }
+
+
+
+    }
+
 }
 
