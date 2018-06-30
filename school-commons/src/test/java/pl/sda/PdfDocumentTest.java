@@ -33,7 +33,7 @@ public class PdfDocumentTest {
 
         MockDataResolver dbMock = new MockDataResolver();
         PdfDocument pdfDocument = new PdfDocument(dbMock.findAllParents(), PATH);
-        assertTrue(pdfDocument.createPdfDocument());
+        assertTrue(pdfDocument.generate());
         assertTrue(checkIfExists(String.format(PATH + "/Parent_report_%s.pdf", LocalDate.now().toString())));
     }
 
@@ -48,7 +48,7 @@ public class PdfDocumentTest {
         Class class6 = new Class(1, new School(), "F", new Date(1995), new Employee());
 
         PdfDocument pdfDocument = new PdfDocument(Arrays.asList(new Class[]{class1, class2, class3, class4, class5, class6}), PATH);
-        assertTrue(pdfDocument.createPdfDocument());
+        assertTrue(pdfDocument.generate());
         assertTrue(checkIfExists(String.format(PATH + "/Class_report_%s.pdf", LocalDate.now().toString())));
     }
 
@@ -72,7 +72,7 @@ public class PdfDocumentTest {
     @Test
     public void integerListTest(){
         PdfDocument pdfDocument = new PdfDocument(Arrays.asList(new Integer[]{1,2,3,4,5}), PATH);
-        assertTrue(pdfDocument.createPdfDocument());
+        assertTrue(pdfDocument.generate());
         assertTrue(checkIfExists(String.format(PATH + "/Integer_report_%s.pdf", LocalDate.now().toString())));
     }
 }

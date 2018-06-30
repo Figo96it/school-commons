@@ -2,13 +2,13 @@ package pl.sda.mocks;
 
 import io.codearte.jfairy.Fairy;
 import io.codearte.jfairy.producer.person.Person;
-import pl.sda.model.*;
 import pl.sda.model.Class;
+import pl.sda.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.lang.Math.*;
+import static java.lang.Math.random;
 
 public class MockDataResolver {
 
