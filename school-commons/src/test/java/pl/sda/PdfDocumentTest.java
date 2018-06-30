@@ -41,7 +41,7 @@ public class PdfDocumentTest {
     @Test
     public void createGradesReport() {
         PdfDocument pdfDocument = new PdfDocument(MockDataResolver.findAllGrades(), PATH);
-        assertTrue(pdfDocument.createPdfDocument());
+        assertTrue(pdfDocument.generate());
         assertTrue(checkIfExists(String.format(PATH + "/Grade_report_%s.pdf", LocalDate.now().toString())));
     }
 
@@ -49,19 +49,19 @@ public class PdfDocumentTest {
     public void createStudentReport() {
 
         PdfDocument pdfDocument = new PdfDocument(MockDataResolver.findAllStudents(), PATH);
-        assertTrue(pdfDocument.createPdfDocument());
+        assertTrue(pdfDocument.generate());
         assertTrue(checkIfExists(String.format(PATH + "/Student_report_%s.pdf", LocalDate.now().toString())));
     }
 
     @Test
     public void createClassReport() {
 
-        Classroom classroom1 = new Classroom(1, new School(), "A", new Date(1990), new Employee());
-        Classroom classroom2 = new Classroom(1, new School(), "B", new Date(1991), new Employee());
-        Classroom classroom3 = new Classroom(1, new School(), "C", new Date(1992), new Employee());
-        Classroom classroom4 = new Classroom(1, new School(), "D", new Date(1993), new Employee());
-        Classroom classroom5 = new Classroom(1, new School(), "E", new Date(1994), new Employee());
-        Classroom classroom6 = new Classroom(1, new School(), "F", new Date(1995), new Employee());
+        Classroom classroom1 = new Classroom(1, new School(), "A", 1990, new Employee());
+        Classroom classroom2 = new Classroom(1, new School(), "B", 1991, new Employee());
+        Classroom classroom3 = new Classroom(1, new School(), "C", 1992, new Employee());
+        Classroom classroom4 = new Classroom(1, new School(), "D", 1993, new Employee());
+        Classroom classroom5 = new Classroom(1, new School(), "E", 1994, new Employee());
+        Classroom classroom6 = new Classroom(1, new School(), "F", 1995, new Employee());
 
         PdfDocument pdfDocument = new PdfDocument(asList(classroom1, classroom2, classroom3, classroom4, classroom5, classroom6), PATH);
         assertTrue(pdfDocument.generate());

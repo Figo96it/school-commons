@@ -1,10 +1,12 @@
 package pl.sda;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
-import pl.sda.model.Grade;
-import pl.sda.model.Parent;
-import pl.sda.model.Student;
+import pl.sda.mocks.MockDataResolver;
+import pl.sda.model.*;
+
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -68,4 +70,42 @@ public class MockDataResolverTest {
         }
         return false;
     }
+
+    @Test
+    public void checkIfClassroomsIsNotNull() {
+        List<Classroom> classrooms = findAllClassrooms();
+        assertFalse(classrooms.isEmpty());
+        for (Classroom classroom : classrooms) {
+            System.out.println(classroom);
+            assertFalse(checkIfAnyFieldIsNull(classroom));
+        }
+    }
+
+    @Test
+    public void checkIfEmployeesIsNotNull() {
+        List<Employee> employees = MockDataResolver.findAllEmployees();
+        assertFalse(employees.isEmpty());
+        for (Employee employee : employees) {
+            System.out.println(employee);
+            assertFalse(checkIfAnyFieldIsNull(employee));
+        }
+    }
+
+    @Test
+    public void checkIfSubjectsIsNotNull() {
+        List<Subject> subjects = MockDataResolver.findAllSubjects();
+        assertFalse(subjects.isEmpty());
+        for (Subject subject : subjects) {
+            System.out.println(subject);
+            assertFalse(checkIfAnyFieldIsNull(subject));
+        }
+    }
+
+    @Test
+    public void checkIfTestSchoolIsNotNull() {
+        School fakeSchool = MockDataResolver.createFakeSchool();
+        System.out.println(fakeSchool);
+        assertFalse(checkIfAnyFieldIsNull(fakeSchool));
+    }
 }
+
