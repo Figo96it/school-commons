@@ -4,6 +4,7 @@ import io.codearte.jfairy.Fairy;
 import io.codearte.jfairy.producer.person.Person;
 import io.codearte.jfairy.producer.text.TextProducer;
 import lombok.Getter;
+import org.springframework.util.CollectionUtils;
 import pl.sda.model.*;
 
 import java.util.ArrayList;
@@ -39,42 +40,42 @@ public class MockDataResolver {
     private static List<Subject> subjectList = new ArrayList<>();
 
     public static List<Parent> findAllParents() {
-        if (parentList == null || parentList.isEmpty()) {
+        if (CollectionUtils.isEmpty(parentList)) {
             return generateMockDataParents(NUMBER_OF_RECORDS);
         }
         return parentList;
     }
 
     public static List<Student> findAllStudents() {
-        if (studentList == null || studentList.isEmpty()) {
+        if (CollectionUtils.isEmpty(studentList)) {
             return generateMockDataStudents(NUMBER_OF_RECORDS);
         }
         return studentList;
     }
 
     public static List<Grade> findAllGrades() {
-        if (gradeList == null || gradeList.isEmpty()) {
+        if (CollectionUtils.isEmpty(gradeList)) {
             return generateMockDataGrades(NUMBER_OF_RECORDS);
         }
         return gradeList;
     }
 
     public static List<Classroom> findAllClassrooms() {
-        if (classroomList == null || classroomList.isEmpty()) {
+        if (CollectionUtils.isEmpty(classroomList)) {
             return generateMockDataClassroom(NUMBER_OF_RECORDS / 10);
         }
         return classroomList;
     }
 
     public static List<Employee> findAllEmployees() {
-        if (employeeList == null || employeeList.isEmpty()) {
+        if (CollectionUtils.isEmpty(employeeList)) {
             return generateMockDataEmployee(NUMBER_OF_RECORDS);
         }
         return employeeList;
     }
 
     public static List<Subject> findAllSubjects() {
-        if (subjectList == null || subjectList.isEmpty()) {
+        if (CollectionUtils.isEmpty(subjectList)) {
             return generateMockDataSubject();
         }
         return subjectList;
