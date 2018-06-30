@@ -2,9 +2,9 @@ package pl.sda;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import pl.sda.model.Grade;
-import pl.sda.model.Parent;
-import pl.sda.model.Student;
+import pl.sda.mocks.MockDataResolver;
+import pl.sda.model.*;
+
 import java.lang.reflect.Field;
 import java.util.HashSet;
 import java.util.List;
@@ -39,9 +39,7 @@ public class MockDataResolverTest {
     public void checkIfGradeDataIdIsNotNull() {
         List<Grade> grades = findAllGrades();
         for (Grade grade : grades) {
-            assertTrue(grade.getId() > 0
-                    && (grade.getGrade() != null)
-                    && grade.getSubject() != null);
+            assertFalse(checkIfAnyFieldIsNull(grade));
         }
     }
 
@@ -72,4 +70,62 @@ public class MockDataResolverTest {
         }
         return false;
     }
+
+    @Test
+    public void checkIfClassroomsIsNotNull() {
+        List<Classroom> classrooms = findAllClassrooms();
+        assertFalse(classrooms.isEmpty());
+        for (Classroom classroom : classrooms) {
+            System.out.println(classroom);
+            assertFalse(checkIfAnyFieldIsNull(classroom));
+        }
+    }
+
+    @Test
+    public void checkIfEmployeesIsNotNull() {
+        List<Employee> employees = MockDataResolver.findAllEmployees();
+        assertFalse(employees.isEmpty());
+        for (Employee employee : employees) {
+            System.out.println(employee);
+            assertFalse(checkIfAnyFieldIsNull(employee));
+        }
+    }
+
+    @Test
+    public void checkIfSubjectsIsNotNull() {
+        List<Subject> subjects = MockDataResolver.findAllSubjects();
+        assertFalse(subjects.isEmpty());
+        for (Subject subject : subjects) {
+            System.out.println(subject);
+            assertFalse(checkIfAnyFieldIsNull(subject));
+        }
+    }
+
+    @Test
+    public void checkIfTestSchoolIsNotNull() {
+        School fakeSchool = MockDataResolver.createFakeSchool();
+        System.out.println(fakeSchool);
+        assertFalse(checkIfAnyFieldIsNull(fakeSchool));
+    }
+
+    @Test
+    public void checkIfFakeDataCreationWorks(){
+        MockDataResolver mdr = new MockDataResolver();
+        MockDataResolver.createFakeDbDataWithRelations();
+        assertFalse(checkIfAnyFieldIsNull(mdr));
+
+        iterateOverList(MockDataResolver.findAllEmployees());
+        iterateOverList(MockDataResolver.findAllClassrooms());
+        iterateOverList(MockDataResolver.findAllGrades());
+        iterateOverList(MockDataResolver.findAllParents());
+        iterateOverList(MockDataResolver.findAllStudents());
+        iterateOverList(MockDataResolver.findAllSubjects());
+    }
+
+    private void iterateOverList(List<?> listOfObjects){
+        for (Object object : listOfObjects){
+            assertFalse(checkIfAnyFieldIsNull(object));
+        }
+    }
 }
+

@@ -11,7 +11,6 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Entity
 @Table(name = "school_subject")
 public class Subject {
@@ -48,6 +47,15 @@ public class Subject {
         result = 31 * result + (subjectName != null ? subjectName.hashCode() : 0);
         result = 31 * result + (plan != null ? plan.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Subject{" +
+                "id=" + id +
+                ", subjectName='" + subjectName + '\'' +
+                ", planId=" + plan.getId() +
+                '}';
     }
 }
 
