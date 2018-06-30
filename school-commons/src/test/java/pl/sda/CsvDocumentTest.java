@@ -65,12 +65,12 @@ public class CsvDocumentTest {
 
     @Test
     public void checkSavingPlan() throws IOException {
-        Plan plan1 = new Plan(1, new Classroom(), new ArrayList<>());
-        Plan plan2 = new Plan(2, new Classroom(), new ArrayList<>());
-        Plan plan3 = new Plan(3, new Classroom(), new ArrayList<>());
-        Plan plan4 = new Plan(4, new Classroom(), new ArrayList<>());
-        Plan plan5 = new Plan(5, new Classroom(), new ArrayList<>());
-        Plan plan6 = new Plan(6, new Classroom(), new ArrayList<>());
+        Plan plan1 = new Plan(1, new Classroom(), null);
+        Plan plan2 = new Plan(2, new Classroom(), null);
+        Plan plan3 = new Plan(3, new Classroom(), null);
+        Plan plan4 = new Plan(4, new Classroom(), null);
+        Plan plan5 = new Plan(5, new Classroom(), null);
+        Plan plan6 = new Plan(6, new Classroom(), null);
         assertTrue(CsvDocument.write(Arrays.asList(plan1, plan2, plan3, plan4, plan5, plan6), PATH));
         assertTrue(checkIfExists(String.format("Plan_dump_%s.csv", LocalDate.now().toString())));
     }
