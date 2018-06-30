@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -14,8 +13,8 @@ import java.util.Date;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "classroom")
-public class Classroom implements Serializable {
+@Table(name = "class")
+public class Class implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,13 +41,13 @@ public class Classroom implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
 
-        Classroom classroom = (Classroom) o;
+        Class aClass = (Class) o;
 
-        if (id != null ? !id.equals(classroom.id) : classroom.id != null) return false;
-        if (school != null ? !school.equals(classroom.school) : classroom.school != null) return false;
-        if (className != null ? !className.equals(classroom.className) : classroom.className != null) return false;
-        if (year != null ? !year.equals(classroom.year) : classroom.year != null) return false;
-        return formTutor != null ? formTutor.equals(classroom.formTutor) : classroom.formTutor == null;
+        if (id != null ? !id.equals(aClass.id) : aClass.id != null) return false;
+        if (school != null ? !school.equals(aClass.school) : aClass.school != null) return false;
+        if (className != null ? !className.equals(aClass.className) : aClass.className != null) return false;
+        if (year != null ? !year.equals(aClass.year) : aClass.year != null) return false;
+        return formTutor != null ? formTutor.equals(aClass.formTutor) : aClass.formTutor == null;
     }
 
     @Override

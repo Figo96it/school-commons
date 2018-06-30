@@ -2,8 +2,8 @@ package pl.sda.mocks;
 
 import io.codearte.jfairy.Fairy;
 import io.codearte.jfairy.producer.person.Person;
+import pl.sda.model.Class;
 import pl.sda.model.*;
-import pl.sda.model.Classroom;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,16 +25,14 @@ public class MockDataResolver {
         return generateMockDataStudents(NUMBER_OF_RECORDS);
     }
 
-    public static List<Grade> findAllGrades() {
-        return generateMockDataGrades(NUMBER_OF_RECORDS);
-    }
+    public static List<Grade> findAllGrades() { return generateMockDataGrades(NUMBER_OF_RECORDS); }
 
     private static List<Parent> generateMockDataParents(int numberOfParents) {
         for (int i = 0; i < numberOfParents; i++) {
             Fairy fairy = Fairy.create();
             Person person = fairy.person();
             Parent parent = new Parent(i + 1, person.getLastName(),
-                    person.getFirstName(), new Student(), person.getTelephoneNumber(),
+                    person.getFirstName(), new Student() , person.getTelephoneNumber(),
                     person.getTelephoneNumber(), person.getEmail());
             parentList.add(parent);
         }
@@ -45,7 +43,7 @@ public class MockDataResolver {
         for (int i = 0; i < numberOfStudents; i++) {
             Fairy fairy = Fairy.create();
             Person person = fairy.person();
-            Student student = new Student(i + 1, new Classroom(), person.getFirstName(), person.getLastName());
+            Student student = new Student(i + 1, new Class(), person.getFirstName(), person.getLastName());
             studentList.add(student);
         }
         return studentList;
