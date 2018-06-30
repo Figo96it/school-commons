@@ -51,7 +51,7 @@ public class PdfDocumentTest {
 
         PdfDocument pdfDocument = new PdfDocument(asList(classroom1, classroom2, classroom3, classroom4, classroom5, classroom6), PATH);
         assertTrue(pdfDocument.generate());
-//        assertTrue(checkIfExists(String.format(PATH + "/Class_report_%s.pdf", LocalDate.now().toString())));
+        assertTrue(checkIfExists(String.format(PATH + "/Classroom_report_%s.pdf", LocalDate.now().toString())));
     }
 
 

@@ -54,7 +54,7 @@ public class MockDataResolverTest {
             assertTrue(grade.getGrade() > 0
                     && grade.getGrade() < 7);
         }
-        //assertTrue(gradeSet.size() > 1);
+        assertTrue(gradeSet.size() > 1);
     }
 
     private static boolean checkIfAnyFieldIsNull(Object object) {

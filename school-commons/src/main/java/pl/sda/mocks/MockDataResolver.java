@@ -4,6 +4,7 @@ import io.codearte.jfairy.Fairy;
 import io.codearte.jfairy.producer.person.Person;
 import pl.sda.model.*;
 import pl.sda.model.Classroom;
+import java.util.concurrent.ThreadLocalRandom;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +55,7 @@ public class MockDataResolver {
     //subject and studentGrade set to null
     private static List<Grade> generateMockDataGrades(int numberOfGrades) {
         for (int i = 0; i < numberOfGrades; i++) {
-            Grade grade = new Grade(i + 1, new Subject(), 5);
+            Grade grade = new Grade(i + 1, new Subject(),ThreadLocalRandom.current().nextInt(1,6));
             gradeList.add(grade);
         }
         return gradeList;
