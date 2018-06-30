@@ -7,12 +7,12 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Entity
 @Table(name = "plan")
 public class Plan {
@@ -47,5 +47,14 @@ public class Plan {
         result = 31 * result + (id != null ? id.hashCode() : 0);
         result = 31 * result + (classroom != null ? classroom.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Plan{" +
+                "id=" + id +
+                ", classroom=" + classroom.getClassName()  + " " + classroom.getYear() +
+                ", subjects=" + subjects.stream().map(Subject::getSubjectName).collect(Collectors.toList()).toString() +
+                '}';
     }
 }

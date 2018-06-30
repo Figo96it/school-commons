@@ -12,7 +12,6 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Entity
 @Table(name = "classroom")
 public class Classroom implements Serializable {
@@ -60,5 +59,16 @@ public class Classroom implements Serializable {
         result = 31 * result + (year != null ? year.hashCode() : 0);
         result = 31 * result + (formTutor != null ? formTutor.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Classroom{" +
+                "id=" + id +
+                ", school=" + school.getName() +
+                ", className='" + className + '\'' +
+                ", year=" + year +
+                ", formTutor=" + formTutor.getFirstName() + " " + formTutor.getLastName() +
+                '}';
     }
 }

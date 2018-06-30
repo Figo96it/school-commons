@@ -1,12 +1,10 @@
 package pl.sda;
 
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import pl.sda.mocks.MockDataResolver;
 import pl.sda.model.*;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -109,21 +107,10 @@ public class MockDataResolverTest {
     }
 
     @Test
-    public void playWithIndexes(){
-        int a = 5;
-        int counter = 0;
-        for (int i = 0; i < 10; i += 5) {
-            for (int j = 0; j < a ; j++) {
-
-                System.out.println(counter+ " "+ i + "\t" + j );
-                counter++;
-
-
-            }
-        }
-
-
-
+    public void testRun(){
+        MockDataResolver mdr = new MockDataResolver();
+        mdr.createFakeDbDataWithRelations();
+        assertFalse(checkIfAnyFieldIsNull(mdr));
     }
 
 }

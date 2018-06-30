@@ -3,14 +3,17 @@ package pl.sda.mocks;
 import io.codearte.jfairy.Fairy;
 import io.codearte.jfairy.producer.person.Person;
 import io.codearte.jfairy.producer.text.TextProducer;
+import lombok.Getter;
 import pl.sda.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 import static java.lang.Math.random;
 
+@Getter
 public class MockDataResolver {
 
     public static List<School> getSchoolsList() {
@@ -35,27 +38,45 @@ public class MockDataResolver {
     private static List<Subject> subjectsList = new ArrayList<>();
 
     public static List<Parent> findAllParents() {
-        return generateMockDataParents(NUMBER_OF_RECORDS);
+        if (parentList == null || parentList.isEmpty()) {
+            return generateMockDataParents(NUMBER_OF_RECORDS);
+        }
+        return parentList;
     }
 
     public static List<Student> findAllStudents() {
-        return generateMockDataStudents(NUMBER_OF_RECORDS);
+        if (studentList == null || studentList.isEmpty()) {
+            return generateMockDataStudents(NUMBER_OF_RECORDS);
+        }
+        return studentList;
     }
 
     public static List<Grade> findAllGrades() {
-        return generateMockDataGrades(NUMBER_OF_RECORDS);
+        if (gradeList == null || gradeList.isEmpty()) {
+            return generateMockDataGrades(NUMBER_OF_RECORDS);
+        }
+        return gradeList;
     }
 
     public static List<Classroom> findAllClassrooms() {
-        return generateMockDataClassroom(NUMBER_OF_RECORDS / 10);
+        if (classroomList == null || classroomList.isEmpty()) {
+            return generateMockDataClassroom(NUMBER_OF_RECORDS / 10);
+        }
+        return classroomList;
     }
 
     public static List<Employee> findAllEmployees() {
-        return generateMockDataEmployee(NUMBER_OF_RECORDS);
+        if (employeeList == null || employeeList.isEmpty()) {
+            return generateMockDataEmployee(NUMBER_OF_RECORDS);
+        }
+        return employeeList;
     }
 
     public static List<Subject> findAllSubjects() {
-        return generateMockDataSubject();
+        if (subjectsList == null || subjectsList.isEmpty()) {
+            return generateMockDataSubject();
+        }
+        return subjectsList;
     }
 
 
@@ -81,8 +102,7 @@ public class MockDataResolver {
 
     private static List<Grade> generateMockDataGrades(int numberOfGrades) {
         for (int i = 0; i < numberOfGrades; i++) {
-            Grade grade = new Grade(i + 1, new Subject(),
-                    new StudentGrade(), (int) (random() * 6 + 1));
+            Grade grade = new Grade(i + 1, new Subject(), (int) (random() * 6 + 1));
             gradeList.add(grade);
         }
         return gradeList;
@@ -90,9 +110,10 @@ public class MockDataResolver {
 
     private static List<Classroom> generateMockDataClassroom(int numberOfClassrooms) {
         School school = new School();
+        Random random = new Random();
         for (int i = 0; i < numberOfClassrooms; i++) {
             TextProducer textProducer = fairyData.textProducer();
-            Integer year = fairyData.dateProducer().randomDateBetweenYears(1990, 2018).toDate().getYear();
+            Integer year = random.nextInt(20) + 1998;
             Classroom classroom = new Classroom(i + 1, school, textProducer.latinWord(1), year,
                     new Employee());
             classroomList.add(classroom);
@@ -121,15 +142,18 @@ public class MockDataResolver {
         return subjectsList;
     }
 
-    private static void generateMockDataSubject(Plan plan) {
+    private static List<Subject> generateMockDataSubject(Plan plan) {
         SubjectEnum[] values = SubjectEnum.values();
         Classroom classroom = plan.getClassroom();
+        List<Subject> createdSubjects = new ArrayList<>();
         for (int i = 0; i < values.length; i++) {
             String subjectName = String.format("%s_%s%d", values[i].name(), classroom.getClassName(), classroom.getYear());
 
             Subject subject = new Subject(subjectsList.size(), subjectName, plan);
+            createdSubjects.add(subject);
             subjectsList.add(subject);
         }
+        return createdSubjects;
     }
 
 
@@ -140,57 +164,97 @@ public class MockDataResolver {
         schoolsList.add(createFakeSchool());
         // 10 classrooms
         generateMockDataClassroom(NUMBER_OF_RECORDS / 10);
-        // Fill classrooms with employees
+        fillClassroomsWithEmployees();
+
+        generateMockDataStudents(NUMBER_OF_RECORDS);
+
+        connectClassroomWithStudent();
+
+        generateMockDataParents(NUMBER_OF_RECORDS);
+        connectParentWithStudent();
+
+        generatemockDataStudentGrades();
+        System.out.println();
+    }
+
+    private static void connectParentWithStudent() {
+        for (int i = 0; i < parentList.size(); i++) {
+            Parent currentParent = parentList.get(i);
+            currentParent.setStudent(studentList.get(i));
+        }
+    }
+
+    private static void connectClassroomWithStudent() {
+        for (int i = 0; i < studentList.size(); i++) {
+            Student currentStudent = studentList.get(i);
+            currentStudent.setClassroom(classroomList.get(i / classroomList.size()));
+        }
+    }
+
+    private static void fillClassroomsWithEmployees() {
         for (int i = 0; i < classroomList.size(); i++) {
             Classroom currentClassroom = classroomList.get(i);
             currentClassroom.setSchool(schoolsList.get(i % 2));
             createFakeEmployeeFor(currentClassroom);
             createFakePlanFor(currentClassroom);
         }
-
-        // create 100 students
-        generateMockDataStudents(NUMBER_OF_RECORDS);
-        for (int i = 0; i < studentList.size(); i++) {
-            Student currentStudent = studentList.get(i);
-            currentStudent.setClassroom(classroomList.get(i / classroomList.size()));
-        }
-
-        generateMockDataParents(NUMBER_OF_RECORDS);
-        for (int i = 0; i < parentList.size(); i++) {
-            Parent currentParent = parentList.get(i);
-            currentParent.setStudent(studentList.get(i));
-        }
-        generateMockDataSubject();
-
-       // create 5 grades per subject per student
-        generateMockDataGradesForAllSubjects(NUMBER_OF_RECORDS * SubjectEnum.values().length * 5);
-
-
     }
 
-    private static void generateMockDataGradesForAllSubjects(int numberOfGrades) {
-        SubjectEnum[] values = SubjectEnum.values();
-        for (int i = 0; i < numberOfGrades; i += values.length) {
-            for (int j = 0; j < values.length ; j++) {
-                // FAKAP!!! wczesniej utworzyc subjecty!!!
+    private static void generatemockDataStudentGrades() {
+        for (int i = 0; i < studentList.size(); i++) {
+            Student currentStudent = studentList.get(i);
+            List<Subject> studentsSubjects = getSubjectsFrom(currentStudent);
+            assert studentsSubjects != null;
+            for (Subject subject : studentsSubjects) {
+                for (int j = 0; j < 5; j++) {
+                    Grade grade = createGrade(subject);
+                    StudentGrade studentGrade = new StudentGrade(studentGradesList.size(), currentStudent, grade);
+                    studentGradesList.add(studentGrade);
+                }
             }
         }
     }
 
+    private static Grade createGrade(Subject subject) {
+        Grade grade = new Grade(gradeList.size(), subject, (int) (random() * 6 + 1));
+        gradeList.add(grade);
+        return grade;
+    }
+
+    private static void generateMockDataGradesForAllSubjects(int numberOfGrades) {
+        for (int i = 0; i < numberOfGrades; i++) {
+            gradeList.add(new Grade(gradeList.size(), null, (int) (random() * 6 + 1)));
+        }
+    }
+
+    private static List<Subject> getSubjectsFrom(Student currentStudent) {
+        Integer studentsClassroomId = currentStudent.getClassroom().getId();
+        Optional<Plan> classroomsPlan = plansList.stream().filter(plan -> plan.getClassroom().getId().equals(studentsClassroomId)).findFirst();
+        if (classroomsPlan.isPresent()) {
+            Plan plan = classroomsPlan.get();
+            return plan.getSubjects();
+        }
+        return null;
+    }
+
+
     private static void createFakePlanFor(Classroom currentClassroom) {
-        return;
+        Plan plan = new Plan(plansList.size(), currentClassroom, null);
+        List<Subject> subjects = generateMockDataSubject(plan);
+        plan.setSubjects(subjects);
+        plansList.add(plan);
     }
 
     private static void cleanAll() {
-        schoolsList = null;
-        subjectsList = null;
-        employeeList = null;
-        classroomList = null;
-        gradeList = null;
-        plansList = null;
-        parentList = null;
-        studentList = null;
-        studentGradesList = null;
+        schoolsList = new ArrayList<>();
+        subjectsList = new ArrayList<>();
+        employeeList = new ArrayList<>();
+        classroomList = new ArrayList<>();
+        gradeList = new ArrayList<>();
+        plansList = new ArrayList<>();
+        parentList = new ArrayList<>();
+        studentList = new ArrayList<>();
+        studentGradesList = new ArrayList<>();
     }
 
     public static School createFakeSchool() {
