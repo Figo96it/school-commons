@@ -4,15 +4,18 @@ import com.opencsv.CSVWriter;
 import javafx.util.Pair;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.IOException;
 import java.io.Writer;
 import java.lang.reflect.Field;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;
+
+import static java.util.stream.Stream.of;
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 public class CsvDocument {
 
@@ -26,7 +29,7 @@ public class CsvDocument {
      */
     private static final String DEFAULT_CSV_PATH = "../..";
 
-    public static boolean write(List<? extends Object> objectsToSave, String outputPath) throws IOException {
+    public static boolean write(List<?> objectsToSave, String outputPath) throws IOException {
         if (objectsToSave == null || objectsToSave.isEmpty()) {
             throw new IllegalArgumentException("Cannot save NULL / EMPTY list!");
         }
@@ -53,7 +56,7 @@ public class CsvDocument {
         }
     }
 
-    private static Pair<Integer, String> getPathFrom(String outputPath, List<? extends Object> objectsToSave) {
+    private static Pair<Integer, String> getPathFrom(String outputPath, List<?> objectsToSave) {
         for (int i = 0; i < objectsToSave.size(); i++) {
             if (objectsToSave.get(i) != null) {
                 return new Pair<>(i, String.format("%s/%s_dump_%s.csv", getOutputPath(outputPath),
@@ -66,11 +69,11 @@ public class CsvDocument {
 
 
     private static String getOutputPath(String outputPath) {
-        return StringUtils.isBlank(outputPath) ? DEFAULT_CSV_PATH : outputPath.replace("\\", "/");
+        return isBlank(outputPath) ? DEFAULT_CSV_PATH : outputPath.replace("\\", "/");
     }
 
     private static String[] getFieldsFrom(Object object) {
-        return Stream.of(object.getClass().getDeclaredFields()).map(Field::getName).toArray(String[]::new);
+        return of(object.getClass().getDeclaredFields()).map(Field::getName).toArray(String[]::new);
     }
 
     private static String[] getStringArrayFromObject(Object object) throws IllegalAccessException {

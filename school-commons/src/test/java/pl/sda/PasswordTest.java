@@ -5,6 +5,7 @@ import junitparams.Parameters;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import pl.sda.credentials.Password;
+
 import static junit.framework.TestCase.assertTrue;
 
 @RunWith(JUnitParamsRunner.class)
@@ -20,7 +21,7 @@ public class PasswordTest {
             "dupa",
             "aaa"
     })
-    public void checkRun(String param){
+    public void checkRun(String param) {
         assertTrue(Password.checkPassword(param, Password.hashPassword(param)));
     }
 
@@ -30,17 +31,17 @@ public class PasswordTest {
             "dupa, 1",
             "aaa, 2"
     })
-    public void checkEncoded(String password, int index){
+    public void checkEncoded(String password, int index) {
         assertTrue(Password.checkPassword(password, encoded[index]));
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void checkEmptyString(){
+    public void checkEmptyString() {
         Password.hashPassword("");
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void checkNullValue(){
+    public void checkNullValue() {
         Password.hashPassword(null);
     }
 
