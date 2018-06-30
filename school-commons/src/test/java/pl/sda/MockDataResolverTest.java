@@ -109,12 +109,19 @@ public class MockDataResolverTest {
         MockDataResolver mdr = new MockDataResolver();
         MockDataResolver.createFakeDbDataWithRelations();
         assertFalse(checkIfAnyFieldIsNull(mdr));
-        assertFalse(checkIfAnyFieldIsNull(MockDataResolver.findAllEmployees()));
-        assertFalse(checkIfAnyFieldIsNull(MockDataResolver.findAllClassrooms()));
-        assertFalse(checkIfAnyFieldIsNull(MockDataResolver.findAllGrades()));
-        assertFalse(checkIfAnyFieldIsNull(MockDataResolver.findAllParents()));
-        assertFalse(checkIfAnyFieldIsNull(MockDataResolver.findAllStudents()));
-        assertFalse(checkIfAnyFieldIsNull(MockDataResolver.findAllSubjects()));
+
+        iterateOverList(MockDataResolver.findAllEmployees());
+        iterateOverList(MockDataResolver.findAllClassrooms());
+        iterateOverList(MockDataResolver.findAllGrades());
+        iterateOverList(MockDataResolver.findAllParents());
+        iterateOverList(MockDataResolver.findAllStudents());
+        iterateOverList(MockDataResolver.findAllSubjects());
+    }
+
+    private void iterateOverList(List<?> listOfObjects){
+        for (Object object : listOfObjects){
+            assertFalse(checkIfAnyFieldIsNull(object));
+        }
     }
 }
 
