@@ -52,12 +52,12 @@ public class CsvDocumentTest {
     @Test
     public void checkSavingClass() throws IOException {
 
-        Classroom classroom1 = new Classroom(1, new School(), "A", new Date(1990), new Employee());
-        Classroom classroom2 = new Classroom(2, new School(), "B", new Date(1991), new Employee());
-        Classroom classroom3 = new Classroom(3, new School(), "C", new Date(1992), new Employee());
-        Classroom classroom4 = new Classroom(4, new School(), "D", new Date(1993), new Employee());
-        Classroom classroom5 = new Classroom(5, new School(), "E", new Date(1994), new Employee());
-        Classroom classroom6 = new Classroom(6, new School(), "F", new Date(1995), new Employee());
+        Classroom classroom1 = new Classroom(1, new School(), "A", 1990, new Employee());
+        Classroom classroom2 = new Classroom(2, new School(), "B", 1991, new Employee());
+        Classroom classroom3 = new Classroom(3, new School(), "C", 1992, new Employee());
+        Classroom classroom4 = new Classroom(4, new School(), "D", 1993, new Employee());
+        Classroom classroom5 = new Classroom(5, new School(), "E", 1994, new Employee());
+        Classroom classroom6 = new Classroom(6, new School(), "F", 1995, new Employee());
 
         assertTrue(CsvDocument.write(Arrays.asList(classroom1, classroom2, classroom3, classroom4, classroom5, classroom6), PATH));
         assertTrue(checkIfExists(String.format("Class_dump_%s.csv", LocalDate.now().toString())));
@@ -65,12 +65,12 @@ public class CsvDocumentTest {
 
     @Test
     public void checkSavingPlan() throws IOException {
-        Plan plan1 = new Plan(1, new Classroom());
-        Plan plan2 = new Plan(2, new Classroom());
-        Plan plan3 = new Plan(3, new Classroom());
-        Plan plan4 = new Plan(4, new Classroom());
-        Plan plan5 = new Plan(5, new Classroom());
-        Plan plan6 = new Plan(6, new Classroom());
+        Plan plan1 = new Plan(1, new Classroom(), null);
+        Plan plan2 = new Plan(2, new Classroom(), null);
+        Plan plan3 = new Plan(3, new Classroom(), null);
+        Plan plan4 = new Plan(4, new Classroom(), null);
+        Plan plan5 = new Plan(5, new Classroom(), null);
+        Plan plan6 = new Plan(6, new Classroom(), null);
         assertTrue(CsvDocument.write(Arrays.asList(plan1, plan2, plan3, plan4, plan5, plan6), PATH));
         assertTrue(checkIfExists(String.format("Plan_dump_%s.csv", LocalDate.now().toString())));
     }

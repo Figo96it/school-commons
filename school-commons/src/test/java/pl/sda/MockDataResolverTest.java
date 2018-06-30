@@ -1,5 +1,6 @@
 package pl.sda;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import pl.sda.model.Grade;
 import pl.sda.model.Parent;
@@ -15,6 +16,7 @@ import static pl.sda.mocks.MockDataResolver.*;
 
 public class MockDataResolverTest {
 
+    @Ignore
     @Test
     public void checkIfParentDataIsNotNull() {
         List<Parent> parents = findAllParents();
@@ -23,6 +25,7 @@ public class MockDataResolverTest {
         }
     }
 
+    @Ignore
     @Test
     public void checkIfStudentDataIsNotNull() {
         List<Student> students = findAllStudents();
@@ -31,6 +34,7 @@ public class MockDataResolverTest {
         }
     }
 
+    @Ignore
     @Test
     public void checkIfGradeDataIdIsNotNull() {
         List<Grade> grades = findAllGrades();
