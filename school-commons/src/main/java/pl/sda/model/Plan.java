@@ -19,7 +19,7 @@ public class Plan {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_employee")
+    @Column(name = "id")
     private Integer id;
 
     @OneToOne
