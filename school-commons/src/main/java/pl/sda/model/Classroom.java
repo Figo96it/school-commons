@@ -14,7 +14,7 @@ import java.util.Date;
 @ToString
 @Entity
 @Table(name = "class")
-public class Class implements Serializable {
+public class Classroom implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,7 +41,7 @@ public class Class implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
 
-        Class aClass = (Class) o;
+        Classroom aClass = (Classroom) o;
 
         if (id != null ? !id.equals(aClass.id) : aClass.id != null) return false;
         if (school != null ? !school.equals(aClass.school) : aClass.school != null) return false;
