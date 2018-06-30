@@ -14,6 +14,7 @@ public class Password {
     private static final int KEY_LENGTH = 100;
     private static final int ITERATIONS = 5;
     private static final byte[] SALT = new byte[256];
+    private static final String ALGHORITM = "PBKDF2WithHmacSHA512";
 
     public static byte[] hashPassword(final String stringPass) {
         if (StringUtils.isBlank(stringPass)) {
@@ -21,7 +22,7 @@ public class Password {
         }
         char[] password = stringPass.toCharArray();
         try {
-            SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
+            SecretKeyFactory skf = SecretKeyFactory.getInstance(ALGHORITM);
             PBEKeySpec spec = new PBEKeySpec(password, SALT, ITERATIONS, KEY_LENGTH);
             SecretKey key = skf.generateSecret(spec);
             return key.getEncoded();
