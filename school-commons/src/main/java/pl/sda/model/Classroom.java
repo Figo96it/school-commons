@@ -30,7 +30,7 @@ public class Classroom implements Serializable {
     private String className;
 
     @Column(name = "class_year")
-    private Date year;
+    private Integer year;
 
     @OneToOne
     @JoinColumn(name = "form_tutor_id")
