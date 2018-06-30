@@ -10,7 +10,6 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Entity
 @Table(name = "parent")
 public class Parent {
@@ -68,6 +67,19 @@ public class Parent {
         result = 31 * result + (mobilePhoneNumber != null ? mobilePhoneNumber.hashCode() : 0);
         result = 31 * result + (mail != null ? mail.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Parent{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", surname='" + surname + '\'' +
+                ", student=" + student.getFirstName() + " " + student.getLastName() +
+                ", tellNumber='" + tellNumber + '\'' +
+                ", mobilePhoneNumber='" + mobilePhoneNumber + '\'' +
+                ", mail='" + mail + '\'' +
+                '}';
     }
 }
 

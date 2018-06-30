@@ -10,7 +10,6 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Entity
 @Table(name = "employee")
 public class Employee {
@@ -57,5 +56,16 @@ public class Employee {
         result = 31 * result + (position != null ? position.hashCode() : 0);
         result = 31 * result + (classroom != null ? classroom.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", position='" + position + '\'' +
+                ", classroom=" + classroom.getClassName() +
+                '}';
     }
 }
