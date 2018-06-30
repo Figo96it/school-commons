@@ -23,7 +23,7 @@ public class Plan {
 
     @OneToOne
     @JoinColumn(name = "id_class")
-    private Class aClass;
+    private Classroom classroom;
 
     @Override
     public boolean equals(Object o) {
@@ -34,14 +34,14 @@ public class Plan {
         Plan plan = (Plan) o;
 
         if (id != null ? !id.equals(plan.id) : plan.id != null) return false;
-        return aClass != null ? aClass.equals(plan.aClass) : plan.aClass == null;
+        return classroom != null ? classroom.equals(plan.classroom) : plan.classroom == null;
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
         result = 31 * result + (id != null ? id.hashCode() : 0);
-        result = 31 * result + (aClass != null ? aClass.hashCode() : 0);
+        result = 31 * result + (classroom != null ? classroom.hashCode() : 0);
         return result;
     }
 }

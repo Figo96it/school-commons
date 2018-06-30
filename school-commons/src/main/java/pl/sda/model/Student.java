@@ -22,7 +22,7 @@ public class Student {
 
     @OneToOne
     @JoinColumn(name = "class_id")
-    private Class aClass;
+    private Classroom classroom;
 
     @Column(name = "first_name")
     private String firstName;
@@ -39,7 +39,7 @@ public class Student {
         Student student = (Student) o;
 
         if (studentId != null ? !studentId.equals(student.studentId) : student.studentId != null) return false;
-        if (aClass != null ? !aClass.equals(student.aClass) : student.aClass != null) return false;
+        if (classroom != null ? !classroom.equals(student.classroom) : student.classroom != null) return false;
         if (firstName != null ? !firstName.equals(student.firstName) : student.firstName != null) return false;
         return lastName != null ? lastName.equals(student.lastName) : student.lastName == null;
     }
@@ -48,7 +48,7 @@ public class Student {
     public int hashCode() {
         int result = super.hashCode();
         result = 31 * result + (studentId != null ? studentId.hashCode() : 0);
-        result = 31 * result + (aClass != null ? aClass.hashCode() : 0);
+        result = 31 * result + (classroom != null ? classroom.hashCode() : 0);
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         return result;

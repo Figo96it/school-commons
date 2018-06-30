@@ -31,7 +31,7 @@ public class Employee {
 
     @OneToOne
     @JoinColumn(name = "id_class")
-    private Class aClass;
+    private Classroom classroom;
 
     @Override
     public boolean equals(Object o) {
@@ -45,7 +45,7 @@ public class Employee {
         if (firstName != null ? !firstName.equals(employee.firstName) : employee.firstName != null) return false;
         if (lastName != null ? !lastName.equals(employee.lastName) : employee.lastName != null) return false;
         if (position != null ? !position.equals(employee.position) : employee.position != null) return false;
-        return aClass != null ? aClass.equals(employee.aClass) : employee.aClass == null;
+        return classroom != null ? classroom.equals(employee.classroom) : employee.classroom == null;
     }
 
     @Override
@@ -55,7 +55,7 @@ public class Employee {
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (position != null ? position.hashCode() : 0);
-        result = 31 * result + (aClass != null ? aClass.hashCode() : 0);
+        result = 31 * result + (classroom != null ? classroom.hashCode() : 0);
         return result;
     }
 }
