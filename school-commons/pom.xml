@@ -5,15 +5,6 @@
     <artifactId>school-commons</artifactId>
     <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
-    <properties>
-        <junit_params_version>1.1.1</junit_params_version>
-        <junit_version>4.12</junit_version>
-        <apache_commons_version>3.4</apache_commons_version>
-        <lombok_version>1.16.20</lombok_version>
-        <open_csv_version>4.0</open_csv_version>
-        <itextpdf_version>5.5.10</itextpdf_version>
-        <spring_boot_starter_version>1.5.4.RELEASE</spring_boot_starter_version>
-    </properties>
     <build>
         <plugins>
             <plugin>
@@ -28,6 +19,15 @@
     </build>
     <name>school-commons</name>
     <url>http://maven.apache.org</url>
+
+    <properties>
+        <junit_params_version>1.1.1</junit_params_version>
+        <junit_version>4.12</junit_version>
+        <apache_commons_version>3.4</apache_commons_version>
+        <lombok_version>1.16.20</lombok_version>
+        <open_csv_version>4.0</open_csv_version>
+        <itextpdf_version>5.5.10</itextpdf_version>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -77,8 +77,8 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-             <artifactId>spring-boot-starter-data-jpa</artifactId>
-            <version>${spring_boot_starter_version}</version>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <version>1.5.4.RELEASE</version>
         </dependency>
     </dependencies>
 </project>
