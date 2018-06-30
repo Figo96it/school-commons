@@ -2,14 +2,13 @@ package pl.sda.mocks;
 
 import io.codearte.jfairy.Fairy;
 import io.codearte.jfairy.producer.person.Person;
-import pl.sda.model.Grade;
-import pl.sda.model.Parent;
-import pl.sda.model.Student;
+import pl.sda.model.*;
+import pl.sda.model.Classroom;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.lang.Math.*;
+import static java.lang.Math.random;
 
 public class MockDataResolver {
 
@@ -35,7 +34,7 @@ public class MockDataResolver {
             Fairy fairy = Fairy.create();
             Person person = fairy.person();
             Parent parent = new Parent(i + 1, person.getLastName(),
-                    person.getFirstName(),i + 1, person.getTelephoneNumber(),
+                    person.getFirstName(), new Student(), person.getTelephoneNumber(),
                     person.getTelephoneNumber(), person.getEmail());
             parentList.add(parent);
         }
@@ -46,7 +45,7 @@ public class MockDataResolver {
         for (int i = 0; i < numberOfStudents; i++) {
             Fairy fairy = Fairy.create();
             Person person = fairy.person();
-            Student student = new Student(i + 1, (int) (random() * 10 + 1), person.getFirstName(), person.getLastName());
+            Student student = new Student(i + 1, new Classroom(), person.getFirstName(), person.getLastName());
             studentList.add(student);
         }
         return studentList;
@@ -54,8 +53,8 @@ public class MockDataResolver {
 
     private static List<Grade> generateMockDataGrades(int numberOfGrades) {
         for (int i = 0; i < numberOfGrades; i++) {
-            Grade grade = new Grade(i + 1, (int) (random() * 10 + 1),
-                    (int) (random() * 10 + 1), (int) (random() * 6 + 1));
+            Grade grade = new Grade(i + 1, new Subject(),
+                    new StudentGrade(), (int) (random() * 6 + 1));
             gradeList.add(grade);
         }
         return gradeList;

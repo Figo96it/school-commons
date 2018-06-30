@@ -19,10 +19,29 @@ public class Plan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_employee")
-    private int id;
+    private Integer id;
 
-    @OneToMany
+    @OneToOne
     @JoinColumn(name = "id_class")
-    private Class aClass;
+    private Classroom classroom;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Plan plan = (Plan) o;
+
+        if (id != null ? !id.equals(plan.id) : plan.id != null) return false;
+        return classroom != null ? classroom.equals(plan.classroom) : plan.classroom == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (id != null ? id.hashCode() : 0);
+        result = 31 * result + (classroom != null ? classroom.hashCode() : 0);
+        return result;
+    }
 }

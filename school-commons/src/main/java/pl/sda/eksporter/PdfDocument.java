@@ -4,7 +4,6 @@ import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -13,13 +12,16 @@ import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.itextpdf.text.BaseColor.LIGHT_GRAY;
 import static com.itextpdf.text.Element.ALIGN_CENTER;
+import static com.itextpdf.text.Image.getInstance;
 import static com.itextpdf.text.Rectangle.NO_BORDER;
+import static java.lang.String.format;
+import static java.util.Objects.requireNonNull;
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 public class PdfDocument {
 
@@ -31,16 +33,16 @@ public class PdfDocument {
     private static final Font DEFAULT_FONT_TITLE = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
     private static final Font DEFAULT_FONT_TEXT = new Font(Font.FontFamily.TIMES_ROMAN, 10);
 
-    public PdfDocument(List<? extends Object> objects, String outputPath) {
+    public PdfDocument(List<?> objects, String outputPath) {
         this.objectsToSave = objects;
         this.columnNames = getFieldsFrom(objects);
         this.outputPath = getOutputPath(outputPath);
     }
 
-    public boolean createPdfDocument() {
+    public boolean generate() {
         Document document = new Document();
         try {
-            PdfWriter.getInstance(document, new FileOutputStream(String.format(this.outputPath + "/%s_report_%s.pdf", reportType, LocalDate.now().toString())));
+            PdfWriter.getInstance(document, new FileOutputStream(format(this.outputPath + "/%s_report_%s.pdf", reportType, LocalDate.now().toString())));
         } catch (DocumentException | FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -56,7 +58,7 @@ public class PdfDocument {
         return true;
     }
 
-    private List<String> getFieldsFrom(List<? extends Object> objects) {
+    private List<String> getFieldsFrom(List<?> objects) {
         for (Object object : objects) {
             if (object != null) {
                 reportType = object.getClass().getSimpleName();
@@ -108,7 +110,7 @@ public class PdfDocument {
 
     private Image getImage(String imageName) throws IOException, BadElementException {
         ClassLoader classLoader = getClass().getClassLoader();
-        Image image = Image.getInstance(Objects.requireNonNull(classLoader.getResource("images/" + imageName)));
+        Image image = getInstance(requireNonNull(classLoader.getResource("images/" + imageName)));
         image.scaleAbsolute(100, 100);
         return image;
     }
@@ -157,10 +159,10 @@ public class PdfDocument {
     }
 
     private String getCreationDate() {
-        return String.format("%s %tF, %<tT", "Date:", new Date());
+        return format("%s %tF, %<tT", "Date:", new Date());
     }
 
     private static String getOutputPath(String outputPath) {
-        return StringUtils.isBlank(outputPath) ? DEFAULT_PDF_PATH : outputPath.replace("\\", "/");
+        return isBlank(outputPath) ? DEFAULT_PDF_PATH : outputPath.replace("\\", "/");
     }
 }
