@@ -276,4 +276,8 @@ public class MockDataResolver {
     public static List<School> getSchoolList() {
         return schoolsList;
     }
+
+    public static List<StudentGrade> getStudentGradeList() {
+        return studentGradeList;
+    }
 }
