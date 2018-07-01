@@ -29,6 +29,9 @@ public class Student {
     @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "age")
+    private Integer age;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

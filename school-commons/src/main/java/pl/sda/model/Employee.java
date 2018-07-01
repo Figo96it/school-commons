@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -27,6 +28,9 @@ public class Employee {
 
     @Column(name = "position")
     private String position;
+
+    @Column(name = "hired_date")
+    private Date hiredDate;
 
     @OneToOne
     @JoinColumn(name = "id_class")

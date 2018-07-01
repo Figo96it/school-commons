@@ -7,10 +7,7 @@ import lombok.Getter;
 import org.springframework.util.CollectionUtils;
 import pl.sda.model.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
 import static java.lang.Math.random;
 import static pl.sda.mocks.MockDataResolver.Position.TEACHER;
@@ -112,7 +109,7 @@ public class MockDataResolver {
     private static List<Student> generateMockDataStudents(int numberOfStudents) {
         for (int i = 0; i < numberOfStudents; i++) {
             Person person = fairyData.person();
-            Student student = new Student(i + 1, new Classroom(), person.getFirstName(), person.getLastName());
+            Student student = new Student(i + 1, new Classroom(), person.getFirstName(), person.getLastName(),person.getAge());
             studentList.add(student);
         }
         return studentList;
@@ -120,7 +117,7 @@ public class MockDataResolver {
 
     private static List<Grade> generateMockDataGrades(int numberOfGrades) {
         for (int i = 0; i < numberOfGrades; i++) {
-            Grade grade = new Grade(i + 1, new Subject(), (int) (random() * 6 + 1));
+            Grade grade = new Grade(i + 1, new Subject(), (int) (random() * 6 + 1), new Date());
             gradeList.add(grade);
         }
         return gradeList;
@@ -145,7 +142,7 @@ public class MockDataResolver {
         for (int i = 0; i < numberOfRecords; i++) {
             Person person = fairyData.person();
             Position position = Position.values()[random.nextInt(Position.values().length)];
-            Employee employee = new Employee(i + 1, person.getFirstName(), person.getLastName(), position.toString(), new Classroom());
+            Employee employee = new Employee(i + 1, person.getFirstName(), person.getLastName(), position.toString(),new Date(), new Classroom());
             employeeList.add(employee);
         }
         return employeeList;
@@ -214,14 +211,14 @@ public class MockDataResolver {
     }
 
     private static Grade createGrade(Subject subject) {
-        Grade grade = new Grade(gradeList.size(), subject, (int) (random() * 6 + 1));
+        Grade grade = new Grade(gradeList.size(), subject, (int) (random() * 6 + 1), new Date());
         gradeList.add(grade);
         return grade;
     }
 
     private static void generateMockDataGradesForAllSubjects(int numberOfGrades) {
         for (int i = 0; i < numberOfGrades; i++) {
-            gradeList.add(new Grade(gradeList.size(), null, (int) (random() * 6 + 1)));
+            gradeList.add(new Grade(gradeList.size(), null, (int) (random() * 6 + 1), new Date()));
         }
     }
 
@@ -265,7 +262,7 @@ public class MockDataResolver {
         Employee employee = new Employee(employeeList.size(),
                 fairyData.person().getFirstName(),
                 fairyData.person().getLastName(),
-                TEACHER.name(),
+                TEACHER.name(),new Date(),
                 classroom
         );
         employeeList.add(employee);
