@@ -127,13 +127,12 @@ public class MockDataResolver {
     }
 
     private static List<Classroom> generateMockDataClassroom(int numberOfClassrooms) {
-        School school = new School();
         Random random = new Random();
         for (int i = 0; i < numberOfClassrooms; i++) {
             TextProducer textProducer = fairyData.textProducer();
             Integer year = random.nextInt(20) + 1998;
-            Classroom classroom = new Classroom(i + 1, school, textProducer.latinWord(1), year,
-                    new Employee());
+            Classroom classroom = new Classroom(i + 1, null, textProducer.latinWord(1), year,
+                    null);
             classroomList.add(classroom);
         }
         return classroomList;

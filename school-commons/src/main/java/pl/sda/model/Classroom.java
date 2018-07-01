@@ -3,11 +3,9 @@ package pl.sda.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -18,7 +16,7 @@ public class Classroom implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_class")
+    @Column(name = "id")
     private Integer id;
 
     @OneToOne
@@ -32,14 +30,13 @@ public class Classroom implements Serializable {
     private Integer year;
 
     @OneToOne
-    @JoinColumn(name = "form_tutor_id")
+    @JoinColumn(name = "id_form_tutor")
     private Employee formTutor;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
 
         Classroom classroom = (Classroom) o;
 
@@ -65,10 +62,8 @@ public class Classroom implements Serializable {
     public String toString() {
         return "Classroom{" +
                 "id=" + id +
-                ", school=" + school.getName() +
                 ", className='" + className + '\'' +
                 ", year=" + year +
-                ", formTutor=" + formTutor.getFirstName() + " " + formTutor.getLastName() +
                 '}';
     }
 }
