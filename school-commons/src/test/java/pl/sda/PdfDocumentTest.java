@@ -1,5 +1,6 @@
 package pl.sda;
 
+import org.junit.Before;
 import org.junit.Test;
 import pl.sda.eksporter.PdfDocument;
 import pl.sda.mocks.MockDataResolver;
@@ -30,10 +31,15 @@ public class PdfDocumentTest {
         return f.exists() && !f.isDirectory();
     }
 
+    @Before
+    public void populateData(){
+        MockDataResolver.createFakeDbDataWithRelations();
+    }
+
+
     @Test
     public void createParentReport() {
 
-        MockDataResolver dbMock = new MockDataResolver();
         PdfDocument pdfDocument = new PdfDocument(findAllParents(), PATH);
         assertTrue(pdfDocument.generate());
         assertTrue(checkIfExists(String.format(PATH + "/Parent_report_%s.pdf", LocalDate.now().toString())));
@@ -55,15 +61,7 @@ public class PdfDocumentTest {
 
     @Test
     public void createClassReport() {
-
-        Classroom classroom1 = new Classroom(1, new School(), "A", 1990, new Employee());
-        Classroom classroom2 = new Classroom(1, new School(), "B", 1991, new Employee());
-        Classroom classroom3 = new Classroom(1, new School(), "C", 1992, new Employee());
-        Classroom classroom4 = new Classroom(1, new School(), "D", 1993, new Employee());
-        Classroom classroom5 = new Classroom(1, new School(), "E", 1994, new Employee());
-        Classroom classroom6 = new Classroom(1, new School(), "F", 1995, new Employee());
-
-        PdfDocument pdfDocument = new PdfDocument(asList(classroom1, classroom2, classroom3, classroom4, classroom5, classroom6), PATH);
+        PdfDocument pdfDocument = new PdfDocument(MockDataResolver.findAllClassrooms(), PATH);
         assertTrue(pdfDocument.generate());
         assertTrue(checkIfExists(String.format(PATH + "/Classroom_report_%s.pdf", LocalDate.now().toString())));
     }

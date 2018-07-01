@@ -1,5 +1,6 @@
 package pl.sda;
 
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import pl.sda.mocks.MockDataResolver;
@@ -16,7 +17,11 @@ import static pl.sda.mocks.MockDataResolver.*;
 
 public class MockDataResolverTest {
 
-    @Ignore
+    @Before
+    public void populateData(){
+        MockDataResolver.createFakeDbDataWithRelations();
+    }
+
     @Test
     public void checkIfParentDataIsNotNull() {
         List<Parent> parents = findAllParents();
@@ -25,7 +30,6 @@ public class MockDataResolverTest {
         }
     }
 
-    @Ignore
     @Test
     public void checkIfStudentDataIsNotNull() {
         List<Student> students = findAllStudents();
@@ -34,7 +38,6 @@ public class MockDataResolverTest {
         }
     }
 
-    @Ignore
     @Test
     public void checkIfGradeDataIdIsNotNull() {
         List<Grade> grades = findAllGrades();

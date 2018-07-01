@@ -1,9 +1,11 @@
 package pl.sda;
 
 import junitparams.JUnitParamsRunner;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import pl.sda.eksporter.CsvDocument;
+import pl.sda.mocks.MockDataResolver;
 import pl.sda.model.*;
 
 import java.io.File;
@@ -12,6 +14,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import static java.util.Collections.singletonList;
 import static junit.framework.TestCase.assertTrue;
@@ -19,6 +22,12 @@ import static junit.framework.TestCase.assertTrue;
 @RunWith(JUnitParamsRunner.class)
 public class CsvDocumentTest {
     private String PATH = ".";
+
+    @Before
+    public void populateData(){
+        MockDataResolver.createFakeDbDataWithRelations();
+    }
+
 
     private boolean checkIfExists(String filePathString) {
         File f = new File(filePathString);
@@ -51,27 +60,13 @@ public class CsvDocumentTest {
 
     @Test
     public void checkSavingClass() throws IOException {
-
-        Classroom classroom1 = new Classroom(1, new School(), "A", 1990, new Employee());
-        Classroom classroom2 = new Classroom(2, new School(), "B", 1991, new Employee());
-        Classroom classroom3 = new Classroom(3, new School(), "C", 1992, new Employee());
-        Classroom classroom4 = new Classroom(4, new School(), "D", 1993, new Employee());
-        Classroom classroom5 = new Classroom(5, new School(), "E", 1994, new Employee());
-        Classroom classroom6 = new Classroom(6, new School(), "F", 1995, new Employee());
-
-        assertTrue(CsvDocument.write(Arrays.asList(classroom1, classroom2, classroom3, classroom4, classroom5, classroom6), PATH));
+        assertTrue(CsvDocument.write(MockDataResolver.findAllClassrooms(), PATH));
         assertTrue(checkIfExists(String.format("Classroom_dump_%s.csv", LocalDate.now().toString())));
     }
 
     @Test
     public void checkSavingPlan() throws IOException {
-        Plan plan1 = new Plan(1, new Classroom(), null);
-        Plan plan2 = new Plan(2, new Classroom(), null);
-        Plan plan3 = new Plan(3, new Classroom(), null);
-        Plan plan4 = new Plan(4, new Classroom(), null);
-        Plan plan5 = new Plan(5, new Classroom(), null);
-        Plan plan6 = new Plan(6, new Classroom(), null);
-        assertTrue(CsvDocument.write(Arrays.asList(plan1, plan2, plan3, plan4, plan5, plan6), PATH));
+        assertTrue(CsvDocument.write(MockDataResolver.getPlanList(), PATH));
         assertTrue(checkIfExists(String.format("Plan_dump_%s.csv", LocalDate.now().toString())));
     }
 
