@@ -4,7 +4,6 @@ import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import javafx.util.Pair;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.FileNotFoundException;
@@ -42,8 +41,8 @@ public class PdfDocument {
         this.outputPath = getOutputPath(outputPath);
     }
 
-    public boolean generateWith(String title, String message){
-        createDocument();
+    public boolean generateWith(String title, String message) {
+        createDocument(title);
         try {
             addTitle(document, title, message);
             addTable(document);
@@ -58,7 +57,7 @@ public class PdfDocument {
 
 
     public boolean generate() {
-        createDocument();
+        createDocument(null);
         try {
             addTitle(document, null, null);
             addTable(document);
@@ -70,10 +69,14 @@ public class PdfDocument {
         return true;
     }
 
-    private void createDocument() {
+    private void createDocument(String title) {
         document = new Document();
         try {
-            PdfWriter.getInstance(document, new FileOutputStream(format(this.outputPath + "/%s_report_%s.pdf", reportType, LocalDate.now().toString())));
+            if (StringUtils.isBlank(title)) {
+                PdfWriter.getInstance(document, new FileOutputStream(format(this.outputPath + "/%s_report_%s.pdf", reportType, LocalDate.now().toString())));
+            } else {
+                PdfWriter.getInstance(document, new FileOutputStream(format(this.outputPath + "/%s_report_%s.pdf", title.replace(" ", "_"), LocalDate.now().toString())));
+            }
         } catch (DocumentException | FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -116,7 +119,7 @@ public class PdfDocument {
     }
 
     private Element getReportName(String text) {
-        if(StringUtils.isBlank(text)) {
+        if (StringUtils.isBlank(text)) {
             return new Phrase("REPORT OF " + reportType.toUpperCase(), DEFAULT_FONT_TITLE);
         } else {
             return new Phrase("REPORT OF " + text.toUpperCase(), DEFAULT_FONT_TITLE);
@@ -124,11 +127,13 @@ public class PdfDocument {
     }
 
     private Element getReportDetails(String message) {
-        if(StringUtils.isBlank(message)) {
-            return new Phrase("This is super report.\n" + "Generated on:\t" + getCreationDate() + "\nBy: " + System.getProperty("user.name"));
+        String text;
+        if (StringUtils.isBlank(message)) {
+            text = "This is super report.\nGenerated on:\t";
         } else {
-            return new Phrase(String.format("%s\n" + "Generated on:\t", message) + getCreationDate() + "\nBy: " + System.getProperty("user.name"));
+            text = String.format("%s\n" + "Generated on:\t", message);
         }
+        return new Phrase(text + getCreationDate() + "\nBy: " + System.getProperty("user.name"));
     }
 
     private PdfPTable createTable() throws DocumentException {
@@ -159,6 +164,7 @@ public class PdfDocument {
             header.setBackgroundColor(LIGHT_GRAY);
             header.setBorderWidth(2);
             header.setPhrase(new Phrase(columnTitle, DEFAULT_FONT_TEXT));
+            header.setHorizontalAlignment(ALIGN_CENTER);
             table.addCell(header);
         });
     }
