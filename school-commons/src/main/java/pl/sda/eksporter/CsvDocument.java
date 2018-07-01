@@ -1,7 +1,8 @@
 package pl.sda.eksporter;
 
 import com.opencsv.CSVWriter;
-import org.apache.commons.lang3.tuple.Pair;
+import javafx.util.Pair;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.io.Writer;
