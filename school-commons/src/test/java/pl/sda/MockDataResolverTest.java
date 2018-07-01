@@ -1,22 +1,26 @@
 package pl.sda;
 
-import org.junit.Ignore;
+import org.junit.Before;
 import org.junit.Test;
 import pl.sda.mocks.MockDataResolver;
 import pl.sda.model.*;
 
-import java.lang.reflect.Field;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static pl.sda.TestSharedFunctions.checkIfAnyFieldIsNull;
 import static pl.sda.mocks.MockDataResolver.*;
 
 public class MockDataResolverTest {
 
-    @Ignore
+    @Before
+    public void populateData() {
+        MockDataResolver.createFakeDbDataWithRelations();
+    }
+
     @Test
     public void checkIfParentDataIsNotNull() {
         List<Parent> parents = findAllParents();
@@ -25,7 +29,6 @@ public class MockDataResolverTest {
         }
     }
 
-    @Ignore
     @Test
     public void checkIfStudentDataIsNotNull() {
         List<Student> students = findAllStudents();
@@ -34,7 +37,6 @@ public class MockDataResolverTest {
         }
     }
 
-    @Ignore
     @Test
     public void checkIfGradeDataIdIsNotNull() {
         List<Grade> grades = findAllGrades();
@@ -55,21 +57,6 @@ public class MockDataResolverTest {
         assertTrue(gradeSet.size() > 1);
     }
 
-    private static boolean checkIfAnyFieldIsNull(Object object) {
-        Field[] declaredFields = object.getClass().getDeclaredFields();
-        for (Field field : declaredFields) {
-            field.setAccessible(true);
-            try {
-                Object value = field.get(object);
-                if (value == null) {
-                    return true;
-                }
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        }
-        return false;
-    }
 
     @Test
     public void checkIfClassroomsIsNotNull() {
@@ -109,7 +96,7 @@ public class MockDataResolverTest {
     }
 
     @Test
-    public void checkIfFakeDataCreationWorks(){
+    public void checkIfFakeDataCreationWorks() {
         MockDataResolver mdr = new MockDataResolver();
         MockDataResolver.createFakeDbDataWithRelations();
         assertFalse(checkIfAnyFieldIsNull(mdr));
@@ -122,8 +109,8 @@ public class MockDataResolverTest {
         iterateOverList(MockDataResolver.findAllSubjects());
     }
 
-    private void iterateOverList(List<?> listOfObjects){
-        for (Object object : listOfObjects){
+    private void iterateOverList(List<?> listOfObjects) {
+        for (Object object : listOfObjects) {
             assertFalse(checkIfAnyFieldIsNull(object));
         }
     }

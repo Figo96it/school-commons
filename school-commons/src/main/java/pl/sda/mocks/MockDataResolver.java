@@ -18,9 +18,6 @@ import static pl.sda.mocks.MockDataResolver.Position.TEACHER;
 @Getter
 public class MockDataResolver {
 
-    public static List<School> getSchoolsList() {
-        return schoolsList;
-    }
 
     public enum Position {JANITOR, TEACHER, PRINCIPAL, COOK, LAWYER}
 
@@ -38,6 +35,25 @@ public class MockDataResolver {
     private static List<StudentGrade> studentGradeList = new ArrayList<>();
     private static List<Grade> gradeList = new ArrayList<>();
     private static List<Subject> subjectList = new ArrayList<>();
+
+    public static void createFakeDbDataWithRelations() {
+        cleanAll();
+        // 2 schools
+        schoolsList.add(createFakeSchool());
+        schoolsList.add(createFakeSchool());
+        // 10 classrooms
+        generateMockDataClassroom(NUMBER_OF_RECORDS / 10);
+        fillClassroomsWithEmployees();
+
+        generateMockDataStudents(NUMBER_OF_RECORDS);
+
+        connectClassroomWithStudent();
+
+        generateMockDataParents(NUMBER_OF_RECORDS);
+        connectParentWithStudent();
+
+        generateMockDataStudentGrades();
+    }
 
     public static List<Parent> findAllParents() {
         if (CollectionUtils.isEmpty(parentList)) {
@@ -159,25 +175,6 @@ public class MockDataResolver {
     }
 
 
-    public static void createFakeDbDataWithRelations() {
-        cleanAll();
-        // 2 schools
-        schoolsList.add(createFakeSchool());
-        schoolsList.add(createFakeSchool());
-        // 10 classrooms
-        generateMockDataClassroom(NUMBER_OF_RECORDS / 10);
-        fillClassroomsWithEmployees();
-
-        generateMockDataStudents(NUMBER_OF_RECORDS);
-
-        connectClassroomWithStudent();
-
-        generateMockDataParents(NUMBER_OF_RECORDS);
-        connectParentWithStudent();
-
-        generateMockDataStudentGrades();
-    }
-
     private static void connectParentWithStudent() {
         for (int i = 0; i < parentList.size(); i++) {
             Parent currentParent = parentList.get(i);
@@ -275,5 +272,11 @@ public class MockDataResolver {
         classroom.setFormTutor(employee);
     }
 
+    public static List<Plan> getPlanList() {
+        return planList;
+    }
 
+    public static List<School> getSchoolList() {
+        return schoolsList;
+    }
 }
