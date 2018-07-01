@@ -1,8 +1,7 @@
 package pl.sda.eksporter;
 
 import com.opencsv.CSVWriter;
-import javafx.util.Pair;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -12,7 +11,6 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Stream;
 
 import static java.util.stream.Stream.of;
 import static org.apache.commons.lang3.StringUtils.isBlank;
@@ -59,7 +57,7 @@ public class CsvDocument {
     private static Pair<Integer, String> getPathFrom(String outputPath, List<?> objectsToSave) {
         for (int i = 0; i < objectsToSave.size(); i++) {
             if (objectsToSave.get(i) != null) {
-                return new Pair<>(i, String.format("%s/%s_dump_%s.csv", getOutputPath(outputPath),
+                return Pair.of(i, String.format("%s/%s_dump_%s.csv", getOutputPath(outputPath),
                         objectsToSave.get(i).getClass().getSimpleName(),
                         LocalDate.now().toString()));
             }
