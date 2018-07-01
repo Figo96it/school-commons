@@ -77,11 +77,16 @@ public class MockDataResolver {
     }
 
     public static List<Classroom> findAllClassrooms() {
+        return findAllClassrooms(NUMBER_OF_RECORDS);
+    }
+
+    public static List<Classroom> findAllClassrooms(int numberOfRecords) {
         if (CollectionUtils.isEmpty(classroomList)) {
             return generateMockDataClassroom(NUMBER_OF_RECORDS / 10);
         }
         return classroomList;
     }
+
 
     public static List<Employee> findAllEmployees() {
         if (CollectionUtils.isEmpty(employeeList)) {
@@ -127,12 +132,13 @@ public class MockDataResolver {
     }
 
     private static List<Classroom> generateMockDataClassroom(int numberOfClassrooms) {
+        School school= new School();
         Random random = new Random();
         for (int i = 0; i < numberOfClassrooms; i++) {
             TextProducer textProducer = fairyData.textProducer();
             Integer year = random.nextInt(20) + 1998;
-            Classroom classroom = new Classroom(i + 1, null, textProducer.latinWord(1), year,
-                    null);
+            Classroom classroom = new Classroom(i + 1,school , textProducer.latinWord(1), year,
+                    new Employee());
             classroomList.add(classroom);
         }
         return classroomList;

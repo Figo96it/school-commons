@@ -64,7 +64,6 @@ public class Employee {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", position='" + position + '\'' +
-                ", classroom=" + classroom.getClassName() +
                 '}';
     }
 }
