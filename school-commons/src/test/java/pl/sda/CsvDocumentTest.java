@@ -17,7 +17,10 @@ import java.util.Date;
 import java.util.List;
 
 import static java.util.Collections.singletonList;
+import static junit.framework.Assert.assertFalse;
 import static junit.framework.TestCase.assertTrue;
+import static pl.sda.TestSharedFunctions.checkIfAnyFieldIsNull;
+import static pl.sda.TestSharedFunctions.checkIfFileExists;
 
 @RunWith(JUnitParamsRunner.class)
 public class CsvDocumentTest {
@@ -28,11 +31,6 @@ public class CsvDocumentTest {
         MockDataResolver.createFakeDbDataWithRelations();
     }
 
-
-    private boolean checkIfExists(String filePathString) {
-        File f = new File(filePathString);
-        return f.exists() && !f.isDirectory();
-    }
 
     @Test(expected = IllegalArgumentException.class)
     public void checkEmptyList() throws IOException {
@@ -46,38 +44,34 @@ public class CsvDocumentTest {
 
     @Test
     public void checkSavingParents() throws IOException {
-        Parent parent1 = new Parent();
-        parent1.setFirstName("jacek");
-        parent1.setSurname("Piekara");
-        parent1.setMail("mail@mail.pl");
-        Parent parent2 = new Parent();
-        parent2.setFirstName("anna");
-        parent2.setSurname("ldas");
-        parent2.setMail("ksahd");
-        assertTrue(CsvDocument.write(Arrays.asList(parent1, parent2), PATH));
-        assertTrue(checkIfExists(String.format("Parent_dump_%s.csv", LocalDate.now().toString())));
+        List<Parent> allParents = MockDataResolver.findAllParents();
+        assertFalse(checkIfAnyFieldIsNull(allParents));
+        assertTrue(CsvDocument.write(allParents, PATH));
+        assertTrue(checkIfFileExists(String.format("Parent_dump_%s.csv", LocalDate.now().toString())));
     }
 
     @Test
     public void checkSavingClass() throws IOException {
-        assertTrue(CsvDocument.write(MockDataResolver.findAllClassrooms(), PATH));
-        assertTrue(checkIfExists(String.format("Classroom_dump_%s.csv", LocalDate.now().toString())));
+        List<Classroom> allClassrooms = MockDataResolver.findAllClassrooms();
+        assertFalse(checkIfAnyFieldIsNull(allClassrooms));
+        assertTrue(CsvDocument.write(allClassrooms, PATH));
+        assertTrue(checkIfFileExists(String.format("Classroom_dump_%s.csv", LocalDate.now().toString())));
     }
 
     @Test
     public void checkSavingPlan() throws IOException {
-        assertTrue(CsvDocument.write(MockDataResolver.getPlanList(), PATH));
-        assertTrue(checkIfExists(String.format("Plan_dump_%s.csv", LocalDate.now().toString())));
+        List<Plan> planList = MockDataResolver.getPlanList();
+        assertFalse(checkIfAnyFieldIsNull(planList));
+        assertTrue(CsvDocument.write(planList, PATH));
+        assertTrue(checkIfFileExists(String.format("Plan_dump_%s.csv", LocalDate.now().toString())));
     }
 
     @Test
     public void checkSavingSchool() throws IOException {
-        School school = new School();
-        school.setAddress("mickiewicza 1");
-        school.setId(1);
-        school.setName("SUPER SZKOLA");
-        assertTrue(CsvDocument.write(singletonList(school), PATH));
-        assertTrue(checkIfExists(String.format("School_dump_%s.csv", LocalDate.now().toString())));
+        List<School> schoolList = MockDataResolver.getSchoolList();
+        assertFalse(checkIfAnyFieldIsNull(schoolList));
+        assertTrue(CsvDocument.write(schoolList, PATH));
+        assertTrue(checkIfFileExists(String.format("School_dump_%s.csv", LocalDate.now().toString())));
     }
 
     @Test
@@ -88,6 +82,7 @@ public class CsvDocumentTest {
         parent2.setSurname("ldas");
         parent2.setMail("ksahd");
         assertTrue(CsvDocument.write(Arrays.asList(parent1, parent2), PATH));
+        assertTrue(checkIfFileExists(String.format("Parent_dump_%s.csv", LocalDate.now().toString())));
     }
 
     @Test(expected = IllegalArgumentException.class)
