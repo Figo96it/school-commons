@@ -26,8 +26,7 @@ public class Plan {
     @JoinColumn(name = "id_class")
     private Classroom classroom;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE })
-    @JoinColumn(name = "id")
+    @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Subject> subjects;
 
     @Override

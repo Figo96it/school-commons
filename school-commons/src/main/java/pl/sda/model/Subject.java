@@ -23,8 +23,8 @@ public class Subject {
     @Column(name = "subject_name")
     private String subjectName;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_plan")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "plan_id")
     private Plan plan;
 
     @Override
