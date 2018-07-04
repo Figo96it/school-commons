@@ -11,7 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "grade")
+@Table(name = "student_grade")
 public class StudentGrade {
 
     @Id
@@ -19,11 +19,11 @@ public class StudentGrade {
     @Column(name = "id")
     private Integer id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_student")
     private Student student;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_grade")
     private Grade grade;
 

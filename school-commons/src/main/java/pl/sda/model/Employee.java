@@ -16,7 +16,7 @@ public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_employee")
+    @Column(name = "id")
     private Integer id;
 
     @Column(name = "first_name")
@@ -28,7 +28,7 @@ public class Employee {
     @Column(name = "position")
     private String position;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_class")
     private Classroom classroom;
 

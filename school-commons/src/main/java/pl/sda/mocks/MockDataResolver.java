@@ -102,8 +102,8 @@ public class MockDataResolver {
         for (int i = 0; i < numberOfParents; i++) {
             Person person = fairyData.person();
             Parent parent = new Parent(i + 1, person.getLastName(),
-                    person.getFirstName(), new Student(), person.getTelephoneNumber(),
-                    person.getTelephoneNumber(), person.getEmail());
+                    person.getFirstName(), new Student(), person.getTelephoneNumber().substring(0,8),
+                    person.getTelephoneNumber().substring(0,8), person.getEmail());
             parentList.add(parent);
         }
         return parentList;

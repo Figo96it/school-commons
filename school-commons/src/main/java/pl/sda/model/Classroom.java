@@ -18,10 +18,10 @@ public class Classroom implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_class")
+    @Column(name = "id")
     private Integer id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_school")
     private School school;
 
@@ -31,8 +31,8 @@ public class Classroom implements Serializable {
     @Column(name = "class_year")
     private Integer year;
 
-    @OneToOne
-    @JoinColumn(name = "form_tutor_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_form_tutor")
     private Employee formTutor;
 
     @Override

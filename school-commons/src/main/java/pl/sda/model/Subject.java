@@ -17,13 +17,13 @@ public class Subject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_subject")
+    @Column(name = "id")
     private Integer id;
 
     @Column(name = "subject_name")
     private String subjectName;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE })
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_plan")
     private Plan plan;
 
