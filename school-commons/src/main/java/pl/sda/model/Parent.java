@@ -25,7 +25,6 @@ public class Parent {
     @Column(name = "surname")
     private String surname;
 
-//    @Column(name = "student_id")
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_student")
     private Student student;
