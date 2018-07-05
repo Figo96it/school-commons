@@ -54,7 +54,6 @@ public class Employee {
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (position != null ? position.hashCode() : 0);
-        result = 31 * result + (classroom != null ? classroom.hashCode() : 0);
         return result;
     }
 
