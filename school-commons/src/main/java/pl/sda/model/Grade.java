@@ -19,8 +19,8 @@ public class Grade {
     @Column(name = "id")
     private Integer id;
 
-    @OneToOne
-    @JoinColumn(name = "subject_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_subject")
     private Subject subject;
 
     @Column(name = "grade")

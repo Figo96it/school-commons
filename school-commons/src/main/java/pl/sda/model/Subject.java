@@ -17,14 +17,14 @@ public class Subject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_subject")
+    @Column(name = "id")
     private Integer id;
 
     @Column(name = "subject_name")
     private String subjectName;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE })
-    @JoinColumn(name = "id_plan")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "plan_id")
     private Plan plan;
 
     @Override
