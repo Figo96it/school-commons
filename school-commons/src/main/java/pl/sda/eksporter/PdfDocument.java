@@ -5,14 +5,17 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import org.apache.commons.lang3.StringUtils;
+import pl.sda.model.Student;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -41,7 +44,28 @@ public class PdfDocument {
         this.outputPath = getOutputPath(outputPath);
     }
 
-    public boolean generateWith(String title, String message) {
+    public PdfDocument(String outputPath) {
+        this.outputPath = getOutputPath(outputPath);
+    }
+
+    public boolean generateStudentsSubjectAveraragesReport(Map<Student, Map<String, Double>> studentsWithSubjectsAverages) throws FileNotFoundException, DocumentException {
+        columnNames = Arrays.asList("SUBJECT", "AVERAGE");
+        String title = "Students' results";
+        String message = "Subjects grade averages of each student.\n";
+
+        createDocument(title);
+        try {
+            addTitle(document, title, message);
+            addGradesParagraphs(document, studentsWithSubjectsAverages);
+        } catch (DocumentException | IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        document.close();
+        return true;
+    }
+
+    public boolean generateWith(String title, String message) throws FileNotFoundException, DocumentException {
         createDocument(title);
         try {
             addTitle(document, title, message);
@@ -52,11 +76,10 @@ public class PdfDocument {
         }
         document.close();
         return true;
-
     }
 
 
-    public boolean generate() {
+    public boolean generate() throws FileNotFoundException, DocumentException {
         createDocument(null);
         try {
             addTitle(document, null, null);
@@ -69,16 +92,12 @@ public class PdfDocument {
         return true;
     }
 
-    private void createDocument(String title) {
+    private void createDocument(String title) throws FileNotFoundException, DocumentException {
         document = new Document();
-        try {
-            if (StringUtils.isBlank(title)) {
-                PdfWriter.getInstance(document, new FileOutputStream(format(this.outputPath + "/%s_report_%s.pdf", reportType, LocalDate.now().toString())));
-            } else {
-                PdfWriter.getInstance(document, new FileOutputStream(format(this.outputPath + "/%s_report_%s.pdf", title.replace(" ", "_"), LocalDate.now().toString())));
-            }
-        } catch (DocumentException | FileNotFoundException e) {
-            e.printStackTrace();
+        if (StringUtils.isBlank(title)) {
+            PdfWriter.getInstance(document, new FileOutputStream(format(this.outputPath + "/%s_report_%s.pdf", reportType, LocalDate.now().toString())));
+        } else {
+            PdfWriter.getInstance(document, new FileOutputStream(format(this.outputPath + "/%s_report_%s.pdf", title.replace(" ", "_"), LocalDate.now().toString())));
         }
         document.open();
     }
@@ -98,7 +117,7 @@ public class PdfDocument {
     private void addTitle(Document document, String title, String message) throws DocumentException, IOException {
         //Create Paragraph
         Paragraph paragraph = new Paragraph();
-        PdfPTable table = createTable();
+        PdfPTable table = createTitleTable();
 
         PdfPCell cellOne = new PdfPCell(getImage("hogwarts_logo.png"));
         PdfPCell cellTwo = new PdfPCell();
@@ -136,10 +155,53 @@ public class PdfDocument {
         return new Phrase(text + getCreationDate() + "\nBy: " + System.getProperty("user.name"));
     }
 
-    private PdfPTable createTable() throws DocumentException {
+    private PdfPTable createTitleTable() throws DocumentException {
         PdfPTable table = new PdfPTable(2);
-        table.setWidths(new float[]{1, 2});
-        table.setWidthPercentage(80);
+        table.setWidths(new float[]{1, 4});
+        table.setWidthPercentage(100);
+        return table;
+    }
+
+
+    private void addGradesParagraphs(Document document, Map<Student, Map<String, Double>> studentsWithSubjectsAverages) {
+
+        try {
+            for (Map.Entry<Student, Map<String, Double>> entry : studentsWithSubjectsAverages.entrySet()) {
+                document.add(new Paragraph(new Phrase("\n")));
+                Paragraph currentParagraph = new Paragraph();
+                Student student = entry.getKey();
+                currentParagraph.add(new Phrase(String.format("%s %s (class: %s, %d)", student.getFirstName(),
+                        student.getLastName(),
+                        student.getClassroom().getClassName(),
+                        student.getClassroom().getYear())));
+                Map<String, Double> gradesAverages = entry.getValue();
+                PdfPTable table = createTable();
+                addRowsSubjectGrades(table, gradesAverages);
+                currentParagraph.add(table);
+                document.add(currentParagraph);
+            }
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    private void addRowsSubjectGrades(PdfPTable table, Map<String, Double> gradesAverages) {
+        gradesAverages.forEach((k, v) -> {
+            PdfPCell pdfPCellSubject = new PdfPCell(new Phrase(k, DEFAULT_FONT_TEXT));
+            pdfPCellSubject.setHorizontalAlignment(ALIGN_CENTER);
+            PdfPCell pdfPCellAverage = new PdfPCell(new Phrase(v.toString(), DEFAULT_FONT_TEXT));
+            pdfPCellAverage.setHorizontalAlignment(ALIGN_CENTER);
+            table.addCell(pdfPCellSubject);
+            table.addCell(pdfPCellAverage);
+        });
+    }
+
+    private PdfPTable createTable() {
+        PdfPTable table = new PdfPTable(columnNames.size()); // length of list
+        table.setWidthPercentage(100);
+        addTableHeader(table, columnNames);
         return table;
     }
 

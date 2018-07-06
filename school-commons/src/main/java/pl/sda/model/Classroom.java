@@ -57,7 +57,6 @@ public class Classroom implements Serializable {
         result = 31 * result + (school != null ? school.hashCode() : 0);
         result = 31 * result + (className != null ? className.hashCode() : 0);
         result = 31 * result + (year != null ? year.hashCode() : 0);
-        result = 31 * result + (formTutor != null ? formTutor.hashCode() : 0);
         return result;
     }
 
