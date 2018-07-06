@@ -157,8 +157,8 @@ public class PdfDocument {
 
     private PdfPTable createTitleTable() throws DocumentException {
         PdfPTable table = new PdfPTable(2);
-        table.setWidths(new float[]{1, 2});
-        table.setWidthPercentage(80);
+        table.setWidths(new float[]{1, 4});
+        table.setWidthPercentage(100);
         return table;
     }
 
