@@ -1,5 +1,6 @@
 package pl.sda;
 
+import com.itextpdf.text.DocumentException;
 import org.junit.Before;
 import org.junit.Test;
 import pl.sda.eksporter.PdfDocument;
@@ -7,6 +8,7 @@ import pl.sda.mocks.MockDataResolver;
 import pl.sda.model.*;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,7 +34,7 @@ public class PdfDocumentTest {
     }
 
     @Test
-    public void createParentReport() {
+    public void createParentReport() throws FileNotFoundException, DocumentException {
         List<Parent> allParents = findAllParents();
         assertFalse(checkIfAnyFieldIsNull(allParents));
         PdfDocument pdfDocument = new PdfDocument(allParents, PATH);
@@ -41,7 +43,7 @@ public class PdfDocumentTest {
     }
 
     @Test
-    public void createGradesReport() {
+    public void createGradesReport() throws FileNotFoundException, DocumentException {
         List<Grade> allGrades = MockDataResolver.findAllGrades();
         assertFalse(checkIfAnyFieldIsNull(allGrades));
         PdfDocument pdfDocument = new PdfDocument(allGrades, PATH);
@@ -50,7 +52,7 @@ public class PdfDocumentTest {
     }
 
     @Test
-    public void createStudentReport() {
+    public void createStudentReport() throws FileNotFoundException, DocumentException {
         List<Student> allStudents = MockDataResolver.findAllStudents();
         assertFalse(checkIfAnyFieldIsNull(allStudents));
         PdfDocument pdfDocument = new PdfDocument(allStudents, PATH);
@@ -59,7 +61,7 @@ public class PdfDocumentTest {
     }
 
     @Test
-    public void createClassReport() {
+    public void createClassReport() throws FileNotFoundException, DocumentException {
         List<Classroom> allClassrooms = MockDataResolver.findAllClassrooms();
         assertFalse(checkIfAnyFieldIsNull(allClassrooms));
         PdfDocument pdfDocument = new PdfDocument(allClassrooms, PATH);
@@ -85,7 +87,7 @@ public class PdfDocumentTest {
     }
 
     @Test
-    public void integerListTest() {
+    public void integerListTest() throws FileNotFoundException, DocumentException {
         PdfDocument pdfDocument = new PdfDocument(asList(1, 2, 3, 4, 5), PATH);
         assertTrue(pdfDocument.generate());
         assertTrue(checkIfFileExists(String.format(PATH + "/Integer_report_%s.pdf", LocalDate.now().toString())));

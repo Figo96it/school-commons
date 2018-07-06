@@ -48,7 +48,7 @@ public class PdfDocument {
         this.outputPath = getOutputPath(outputPath);
     }
 
-    public boolean generateStudentsSubjectAveraragesReport(Map<Student, Map<String, Double>> studentsWithSubjectsAverages) {
+    public boolean generateStudentsSubjectAveraragesReport(Map<Student, Map<String, Double>> studentsWithSubjectsAverages) throws FileNotFoundException, DocumentException {
         columnNames = Arrays.asList("SUBJECT", "AVERAGE");
         String title = "Students' results";
         String message = "Subjects grade averages of each student.\n";
@@ -65,7 +65,7 @@ public class PdfDocument {
         return true;
     }
 
-    public boolean generateWith(String title, String message) {
+    public boolean generateWith(String title, String message) throws FileNotFoundException, DocumentException {
         createDocument(title);
         try {
             addTitle(document, title, message);
@@ -79,7 +79,7 @@ public class PdfDocument {
     }
 
 
-    public boolean generate() {
+    public boolean generate() throws FileNotFoundException, DocumentException {
         createDocument(null);
         try {
             addTitle(document, null, null);
@@ -92,16 +92,12 @@ public class PdfDocument {
         return true;
     }
 
-    private void createDocument(String title) {
+    private void createDocument(String title) throws FileNotFoundException, DocumentException {
         document = new Document();
-        try {
-            if (StringUtils.isBlank(title)) {
-                PdfWriter.getInstance(document, new FileOutputStream(format(this.outputPath + "/%s_report_%s.pdf", reportType, LocalDate.now().toString())));
-            } else {
-                PdfWriter.getInstance(document, new FileOutputStream(format(this.outputPath + "/%s_report_%s.pdf", title.replace(" ", "_"), LocalDate.now().toString())));
-            }
-        } catch (DocumentException | FileNotFoundException e) {
-            e.printStackTrace();
+        if (StringUtils.isBlank(title)) {
+            PdfWriter.getInstance(document, new FileOutputStream(format(this.outputPath + "/%s_report_%s.pdf", reportType, LocalDate.now().toString())));
+        } else {
+            PdfWriter.getInstance(document, new FileOutputStream(format(this.outputPath + "/%s_report_%s.pdf", title.replace(" ", "_"), LocalDate.now().toString())));
         }
         document.open();
     }
