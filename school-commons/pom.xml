@@ -13,6 +13,7 @@
         <open_csv_version>4.0</open_csv_version>
         <itextpdf_version>5.5.10</itextpdf_version>
         <spring_boot_starter_version>1.5.4.RELEASE</spring_boot_starter_version>
+        <jackson_version>2.9.4</jackson_version>
     </properties>
     <build>
         <plugins>
@@ -36,6 +37,7 @@
             <version>${junit_params_version}</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -79,6 +81,11 @@
             <groupId>org.springframework.boot</groupId>
              <artifactId>spring-boot-starter-data-jpa</artifactId>
             <version>${spring_boot_starter_version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson_version}</version>
         </dependency>
     </dependencies>
 </project>

@@ -20,10 +20,10 @@ public class School {
     @Column(name = "id")
     private Integer id;
 
-@Column(name = "name")
+    @Column(name = "name")
     private String name;
 
-@Column(name = "address")
+    @Column(name = "address")
     private String address;
 
     @Override
