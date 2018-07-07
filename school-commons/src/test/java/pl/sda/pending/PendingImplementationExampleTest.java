@@ -4,8 +4,6 @@ import junitparams.JUnitParamsRunner;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import pl.sda.peding.PendingImplementation;
-import pl.sda.peding.PendingRule;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;

@@ -1,4 +1,4 @@
-package pl.sda.peding;
+package pl.sda.pending;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

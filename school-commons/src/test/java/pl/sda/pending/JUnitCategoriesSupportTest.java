@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
-import pl.sda.peding.PendingRule;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;

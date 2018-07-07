@@ -1,4 +1,4 @@
-package pl.sda.peding;
+package pl.sda.pending;
 
 import org.junit.runners.model.Statement;
 

@@ -1,4 +1,4 @@
-package pl.sda.peding;
+package pl.sda.pending;
 
 import org.junit.experimental.categories.Category;
 import org.junit.rules.MethodRule;
