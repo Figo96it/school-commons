@@ -25,11 +25,11 @@ public class Parent {
     @Column(name = "surname")
     private String surname;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_student")
     private Student student;
 
-    @Column(name ="tell_number" )
+    @Column(name = "tell_number")
     private String tellNumber;
 
     @Column(name = "mobile_phone")
@@ -37,6 +37,11 @@ public class Parent {
 
     @Column(name = "mail")
     private String mail;
+
+    @PreRemove
+    private void preRemove() {
+        student = null;
+    }
 
     @Override
     public boolean equals(Object o) {

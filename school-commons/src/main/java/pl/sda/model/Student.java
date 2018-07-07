@@ -1,5 +1,6 @@
 package pl.sda.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,7 @@ public class Student {
     @Column(name = "id")
     private Integer studentId;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "id_class")
     private Classroom classroom;
 
@@ -28,6 +29,19 @@ public class Student {
 
     @Column(name = "last_name")
     private String lastName;
+
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE},
+            fetch = FetchType.LAZY,
+            mappedBy = "student")
+    @JsonIgnore
+    private Parent parent;
+
+    public Student(Integer id, Classroom classroom, String firstName, String lastName) {
+        this.studentId = id;
+        this.classroom = classroom;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
     @Override
     public boolean equals(Object o) {
