@@ -1,5 +1,6 @@
 package pl.sda.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,6 +34,7 @@ public class Classroom implements Serializable {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_form_tutor")
+    @JsonIgnore
     private Employee formTutor;
 
     @Override
