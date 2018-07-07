@@ -35,17 +35,13 @@ public class StudentGrade {
 
         StudentGrade that = (StudentGrade) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (student != null ? !student.equals(that.student) : that.student != null) return false;
-        return grade != null ? grade.equals(that.grade) : that.grade == null;
+        return (id != null ? !id.equals(that.id) : that.id != null);
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
         result = 31 * result + (id != null ? id.hashCode() : 0);
-        result = 31 * result + (student != null ? student.hashCode() : 0);
-        result = 31 * result + (grade != null ? grade.hashCode() : 0);
         return result;
     }
 
@@ -54,7 +50,6 @@ public class StudentGrade {
         return "StudentGrade{" +
                 "id=" + id +
                 ", student=" + student.getFirstName() + " " + student.getLastName() +
-                ", grade=" + grade +
                 '}';
     }
 }

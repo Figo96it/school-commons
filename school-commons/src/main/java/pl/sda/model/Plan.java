@@ -37,15 +37,13 @@ public class Plan {
 
         Plan plan = (Plan) o;
 
-        if (id != null ? !id.equals(plan.id) : plan.id != null) return false;
-        return classroom != null ? classroom.equals(plan.classroom) : plan.classroom == null;
+        return (id != null ? !id.equals(plan.id) : plan.id != null);
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
         result = 31 * result + (id != null ? id.hashCode() : 0);
-        result = 31 * result + (classroom != null ? classroom.hashCode() : 0);
         return result;
     }
 
@@ -53,7 +51,7 @@ public class Plan {
     public String toString() {
         return "Plan{" +
                 "id=" + id +
-                ", classroom=" + classroom.getClassName()  + " " + classroom.getYear() +
+                ", classroom=" + classroom.getClassName() + " " + classroom.getYear() +
                 ", subjects=" + subjects.stream().map(Subject::getSubjectName).collect(Collectors.toList()).toString() +
                 '}';
     }

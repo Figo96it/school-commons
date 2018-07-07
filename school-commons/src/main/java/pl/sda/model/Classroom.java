@@ -3,11 +3,9 @@ package pl.sda.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -64,10 +62,8 @@ public class Classroom implements Serializable {
     public String toString() {
         return "Classroom{" +
                 "id=" + id +
-                ", school=" + school.getName() +
                 ", className='" + className + '\'' +
                 ", year=" + year +
-                ", formTutor=" + formTutor.getFirstName() + " " + formTutor.getLastName() +
                 '}';
     }
 }

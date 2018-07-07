@@ -44,8 +44,7 @@ public class Employee {
         if (id != null ? !id.equals(employee.id) : employee.id != null) return false;
         if (firstName != null ? !firstName.equals(employee.firstName) : employee.firstName != null) return false;
         if (lastName != null ? !lastName.equals(employee.lastName) : employee.lastName != null) return false;
-        if (position != null ? !position.equals(employee.position) : employee.position != null) return false;
-        return classroom != null ? classroom.equals(employee.classroom) : employee.classroom == null;
+        return (position != null ? !position.equals(employee.position) : employee.position != null);
     }
 
     @Override
@@ -65,7 +64,6 @@ public class Employee {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", position='" + position + '\'' +
-                ", classroom=" + classroom.getClassName() +
                 '}';
     }
 }

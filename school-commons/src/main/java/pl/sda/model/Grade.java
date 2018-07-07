@@ -3,7 +3,6 @@ package pl.sda.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -35,7 +34,6 @@ public class Grade {
         Grade grade1 = (Grade) o;
 
         if (id != null ? !id.equals(grade1.id) : grade1.id != null) return false;
-        if (subject != null ? !subject.equals(grade1.subject) : grade1.subject != null) return false;
         return grade != null ? grade.equals(grade1.grade) : grade1.grade == null;
     }
 
@@ -52,7 +50,6 @@ public class Grade {
     public String toString() {
         return "Grade{" +
                 "id=" + id +
-                ", subject=" + subject.getSubjectName() +
                 ", grade=" + grade +
                 '}';
     }

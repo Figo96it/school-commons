@@ -49,7 +49,6 @@ public class Parent {
         if (id != null ? !id.equals(parent.id) : parent.id != null) return false;
         if (firstName != null ? !firstName.equals(parent.firstName) : parent.firstName != null) return false;
         if (surname != null ? !surname.equals(parent.surname) : parent.surname != null) return false;
-        if (student != null ? !student.equals(parent.student) : parent.student != null) return false;
         if (tellNumber != null ? !tellNumber.equals(parent.tellNumber) : parent.tellNumber != null) return false;
         if (mobilePhoneNumber != null ? !mobilePhoneNumber.equals(parent.mobilePhoneNumber) : parent.mobilePhoneNumber != null)
             return false;
@@ -62,7 +61,6 @@ public class Parent {
         result = 31 * result + (id != null ? id.hashCode() : 0);
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (surname != null ? surname.hashCode() : 0);
-        result = 31 * result + (student != null ? student.hashCode() : 0);
         result = 31 * result + (tellNumber != null ? tellNumber.hashCode() : 0);
         result = 31 * result + (mobilePhoneNumber != null ? mobilePhoneNumber.hashCode() : 0);
         result = 31 * result + (mail != null ? mail.hashCode() : 0);
@@ -75,7 +73,6 @@ public class Parent {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", surname='" + surname + '\'' +
-                ", student=" + student.getFirstName() + " " + student.getLastName() +
                 ", tellNumber='" + tellNumber + '\'' +
                 ", mobilePhoneNumber='" + mobilePhoneNumber + '\'' +
                 ", mail='" + mail + '\'' +

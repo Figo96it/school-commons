@@ -37,8 +37,7 @@ public class Subject {
         Subject subject = (Subject) o;
 
         if (id != null ? !id.equals(subject.id) : subject.id != null) return false;
-        if (subjectName != null ? !subjectName.equals(subject.subjectName) : subject.subjectName != null) return false;
-        return plan != null ? plan.equals(subject.plan) : subject.plan == null;
+        return (subjectName != null ? !subjectName.equals(subject.subjectName) : subject.subjectName != null);
     }
 
     @Override
@@ -46,7 +45,6 @@ public class Subject {
         int result = super.hashCode();
         result = 31 * result + (id != null ? id.hashCode() : 0);
         result = 31 * result + (subjectName != null ? subjectName.hashCode() : 0);
-        result = 31 * result + (plan != null ? plan.hashCode() : 0);
         return result;
     }
 
